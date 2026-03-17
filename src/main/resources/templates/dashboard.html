@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<h2>Usuários</h2>
+
+<div sec:authorize="hasRole('ADMIN')">
+    <a href="/register">Registrar novo usuário</a>
+</div>
+
+<ul>
+    <li th:each="u : ${usuarios}">
+        <span th:text="${u.username}"></span> -
+        <span th:text="${u.role}"></span>
+
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/edit/{id}(id=${u.id})}">Editar</a>
+            <a th:href="@{/delete/{id}(id=${u.id})}">Excluir</a>
+        </div>
+
+    </li>
+</ul>
+
+<a href="/logout">Sair</a>
+
+</body>
+</html>
