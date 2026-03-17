@@ -13,6 +13,12 @@ CREATE TABLE usuarios (
     password VARCHAR(255) NOT NULL
 );
 
+ALTER TABLE usuarios ADD role VARCHAR(20) DEFAULT 'USER';
+
+INSERT INTO usuarios (nome, username, email, password, role)
+VALUES ('Admin', 'admin', 'admin@email.com',
+'$2a$10$oZwYUEPyhuKp.kFppKYEF.VbfBPlykvB/7X/Wy4B5.DPobhelY9R2', 'ADMIN');
+
 -- Tabela marcas
 CREATE TABLE marcas (
     id INT AUTO_INCREMENT PRIMARY KEY,
