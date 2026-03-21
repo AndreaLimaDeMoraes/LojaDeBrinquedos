@@ -1,0 +1,5 @@
+com\vitrine\eva\service\BrinquedoService.class
+com\vitrine\eva\controller\BrinquedoController.class
+com\vitrine\eva\dto\BrinquedoDTO.class
+com\vitrine\eva\model\entity\Brinquedo.class
+com\vitrine\eva\repository\BrinquedoRepository.class
