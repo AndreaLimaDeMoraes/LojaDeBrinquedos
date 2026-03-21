@@ -12,7 +12,7 @@ public class CategoriaDTO {
 		@NotBlank(message = "O Nome não pode ser vazio")
 		private String nome;
 		
-		@NotBlank(message = "A descricaorição não pode ser vazio")
+		@NotBlank(message = "A descrição não pode ser vazio")
 		private String descricao;
 		
 		
