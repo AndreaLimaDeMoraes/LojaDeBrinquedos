@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vitrine.eva.dto.CategoriaDTO;
 import com.vitrine.eva.model.entity.Categoria;
@@ -50,12 +51,14 @@ public class CategoriaService {
 		return toDto(categoria);
 	}
 	
-	public void excluir(Long id) {
-		Categoria categoria = categoriaRepository.findById(id).
-				orElseThrow(() -> new RuntimeException("Aluno não encontrada"));
-		
-		categoriaRepository.delete(categoria);
-	}
+	 @Transactional
+	    public boolean deletar(Long id) {
+	        if (categoriaRepository.existsById(id)) {
+	            categoriaRepository.deleteById(id);
+	            return true;
+	        }
+	        return false;
+	    }
 	
 	
 	

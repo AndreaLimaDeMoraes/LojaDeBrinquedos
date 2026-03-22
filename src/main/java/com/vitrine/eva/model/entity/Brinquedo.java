@@ -4,14 +4,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column; // - mapeia para o nome exato da coluna
 import jakarta.persistence.Lob; //  para campos grandes como imagens
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.ElementCollection; 
 
 @Entity
@@ -19,12 +26,12 @@ import jakarta.persistence.ElementCollection;
 public class Brinquedo {
 	
 	//atributos
-	@Id 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   // Column nomeBrinquedos
   @Column(name="nome_brinquedo", nullable=false)
-	private String nomeBrinquedo;
+  private String nomeBrinquedo;
 
   // imagens
   @ElementCollection
@@ -35,9 +42,6 @@ public class Brinquedo {
   
   @Column(name = "valor", nullable = false)
   private BigDecimal valor;
-
-  @Column(name = "categoria")
-  private String categoria; 
 
   @Column(name = "fornecedor")
   private String fornecedor;
@@ -57,12 +61,17 @@ public class Brinquedo {
    @Column(name = "data_cadastro")
   private LocalDateTime dataCadastro;
 	
+   @ManyToOne
+   @JoinColumn (name = "categoria_id")
+   private Categoria categoria;
+   
+   
 	//construtores
 	public Brinquedo() {}
 	
-	public Brinquedo(Long id, String nome, String desc) {
+	public Brinquedo(Long id, String nome, String descricao) {
 		 this.id = id;
-     this.nomeBrinquedo = nomeBrinquedo;
+     this.nomeBrinquedo = nome;
      this.descricao = descricao;
 	}
 
@@ -107,11 +116,11 @@ public class Brinquedo {
         this.descricao = descricao;
     }
     
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
     
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
     

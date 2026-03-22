@@ -11,7 +11,7 @@ import com.vitrine.eva.model.entity.Brinquedo;
 import com.vitrine.eva.service.BrinquedoService;
 
 @RestController
-@RequestMapping("/api/brinquedos")
+@RequestMapping("/brinquedos")
 @CrossOrigin(origins = "*") // Permite requisições de qualquer origem (útil para front-end)
 public class BrinquedoController {
     
