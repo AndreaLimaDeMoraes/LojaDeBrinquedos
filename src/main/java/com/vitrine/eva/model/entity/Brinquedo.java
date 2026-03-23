@@ -65,6 +65,11 @@ public class Brinquedo {
    @JoinColumn (name = "categoria_id")
    private Categoria categoria;
    
+   @ManyToOne
+   @JoinColumn(name = "marca_id")
+   private Marca marca;
+
+   
    
 	//construtores
 	public Brinquedo() {}
