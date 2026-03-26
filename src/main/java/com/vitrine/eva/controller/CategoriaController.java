@@ -18,7 +18,7 @@ import com.vitrine.eva.service.CategoriaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 
 public class CategoriaController {
 	
