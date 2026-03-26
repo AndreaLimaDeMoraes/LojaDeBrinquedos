@@ -25,19 +25,11 @@ public class Categoria {
 	private String nome;
 	private String descricao;
 	
-	@OneToMany(
-			mappedBy = "categoria",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true		
-	)
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    
 	@JsonIgnore
 	private List<Brinquedo> brinquedos = new ArrayList<>();
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "marca_id")
-	private Marca marca;
-
 	
 	//construtores
 	public Categoria() {}

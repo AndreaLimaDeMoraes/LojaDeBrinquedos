@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.vitrine.eva.model.entity.Categoria;
+import com.vitrine.eva.model.entity.Marca;
+
 public class BrinquedoDTO {
     
     private Long id;
@@ -11,8 +14,11 @@ public class BrinquedoDTO {
     private List<String> imagens;
     private String descricao;
     private BigDecimal valor;
-    private String categoria;
-    private String fornecedor;
+    private Categoria categoria;
+    private Marca marca;
+    
+
+	private String fornecedor;
     private String idadeRecomendada;
     private Integer quantidadeEstoque;
     private Double desconto;
@@ -23,16 +29,24 @@ public class BrinquedoDTO {
     
     // Construtor com parâmetros
     public BrinquedoDTO(Long id, String nomeBrinquedo, String descricao, BigDecimal valor, 
-                        String categoria, Integer quantidadeEstoque) {
+                        Categoria categoria,  Marca marca, Integer quantidadeEstoque) {
         this.id = id;
         this.nomeBrinquedo = nomeBrinquedo;
         this.descricao = descricao;
+        this.marca = marca;
         this.valor = valor;
         this.categoria = categoria;
         this.quantidadeEstoque = quantidadeEstoque;
     }
     
     // Getters e Setters
+    public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
     public Long getId() {
         return id;
     }
@@ -73,11 +87,11 @@ public class BrinquedoDTO {
         this.valor = valor;
     }
     
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
     
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
     

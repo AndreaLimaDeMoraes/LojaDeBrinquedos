@@ -69,18 +69,43 @@ public class Brinquedo {
    @JoinColumn(name = "marca_id")
    private Marca marca;
 
-   
-   
+	
+
 	//construtores
 	public Brinquedo() {}
 	
-	public Brinquedo(Long id, String nome, String descricao) {
-		 this.id = id;
-     this.nomeBrinquedo = nome;
-     this.descricao = descricao;
+	
+
+	public Brinquedo(Long id, String nomeBrinquedo, List<String> imagens, String descricao, BigDecimal valor,
+			String fornecedor, String idadeRecomendada, Integer quantidadeEstoque, Double desconto,
+			LocalDateTime dataCadastro, Categoria categoria, Marca marca) {
+		super();
+		this.id = id;
+		this.nomeBrinquedo = nomeBrinquedo;
+		this.imagens = imagens;
+		this.descricao = descricao;
+		this.valor = valor;
+		this.fornecedor = fornecedor;
+		this.idadeRecomendada = idadeRecomendada;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.desconto = desconto;
+		this.dataCadastro = dataCadastro;
+		this.categoria = categoria;
+		this.marca = marca;
 	}
 
+
+
 	//getters e setters
+	
+	public Marca getMarca() {
+		return marca;
+	}
+
+   public void setMarca(Marca marca) {
+	   this.marca = marca;
+   }
+	
     public Long getId() {
         return id;
     }
