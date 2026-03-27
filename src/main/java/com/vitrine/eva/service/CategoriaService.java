@@ -68,6 +68,7 @@ public class CategoriaService {
 		
 		categoria.setNome(dto.getNome());
 		categoria.setDescricao(dto.getDescricao());
+		categoria.setId(dto.getId());
 		
 		return categoria;
 	}
@@ -78,6 +79,8 @@ public class CategoriaService {
 		
 	dto.setNome(categoria.getNome());
 	dto.setDescricao(categoria.getDescricao());
+	dto.setId(categoria.getId());
+
 		
 		return dto;
 	}
