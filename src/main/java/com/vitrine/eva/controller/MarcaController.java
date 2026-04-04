@@ -12,6 +12,7 @@ import com.vitrine.eva.service.MarcaService;
 
 @RestController
 @RequestMapping("/marcas")
+@CrossOrigin(origins = "http://localhost:5173")
 public class MarcaController {
 
     @Autowired

@@ -53,4 +53,10 @@ public class BrinquedoController {
                 ? ResponseEntity.noContent().build() 
                 : ResponseEntity.notFound().build();
     }
+    
+    @DeleteMapping("/excluir-vários")
+    public ResponseEntity<Void> deletarVarios(@RequestBody List<Long> ids) {
+        ids.forEach(id -> brinquedoService.deletar(id));
+        return ResponseEntity.noContent().build();
+    }
 }

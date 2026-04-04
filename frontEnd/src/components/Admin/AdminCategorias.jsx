@@ -49,7 +49,9 @@ const AdminCategorias = () => {
   const handleExcluirSelecionados = async () => {
     if (selecionados.length === 0) return alert("Selecione ao menos um item.");
     
-    if (window.confirm(`Confirmar exclusão de ${selecionados.length} itens?`)) {
+    const mensagem = `Atenção: Ao excluir estas ${selecionados.length} categorias, TODOS os brinquedos vinculados a elas também serão excluídos permanentemente. Deseja continuar?`;
+    
+    if (window.confirm(mensagem)) {
       try {
         await api.post('/categorias/deletar-varios', selecionados);
         fecharExclusao();
@@ -63,11 +65,13 @@ const AdminCategorias = () => {
     const todosIds = categorias.map(c => c.id);
     if (todosIds.length === 0) return;
 
-    if (window.confirm("Atenção: Você deseja apagar TODAS as categorias?")) {
+    const mensagem = "PERIGO: Você deseja apagar TODAS as categorias? Isso removerá TODOS os brinquedos do sistema. Esta ação não pode ser desfeita!";
+
+    if (window.confirm(mensagem)) {
       try {
         await api.post('/categorias/deletar-varios', todosIds);
         fecharExclusao();
-        alert("Todas as categorias foram removidas.");
+        alert("Todas as categorias e brinquedos vinculados foram removidos.");
       } catch (err) { 
         alert("Erro ao excluir todas as categorias."); 
       }
@@ -147,7 +151,6 @@ const AdminCategorias = () => {
         {excluindo ? (
           <>
             <button className="btn-action btn-del" onClick={handleExcluirSelecionados}>Excluir Selecionados</button>
-            {/* Cor ajustada para um vermelho mais suave/pastel */}
             <button className="btn-action" style={{ backgroundColor: '#ff8a8a', color: 'white' }} onClick={handleExcluirTudo}>
               Excluir Tudo
             </button>

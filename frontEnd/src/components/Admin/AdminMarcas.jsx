@@ -49,7 +49,9 @@ const AdminMarcas = () => {
   const handleExcluirSelecionados = async () => {
     if (selecionados.length === 0) return alert("Selecione ao menos uma marca.");
     
-    if (window.confirm(`Confirmar exclusão de ${selecionados.length} marcas?`)) {
+    const mensagem = `Atenção: Ao excluir estas ${selecionados.length} marcas, todos os brinquedos vinculados a elas serão removidos do catálogo. Confirmar exclusão?`;
+    
+    if (window.confirm(mensagem)) {
       try {
         await api.post('/marcas/deletar-varios', selecionados);
         fecharExclusao();
@@ -63,11 +65,13 @@ const AdminMarcas = () => {
     const todosIds = marcas.map(m => m.id);
     if (todosIds.length === 0) return;
 
-    if (window.confirm("Atenção: Você deseja apagar TODAS as marcas?")) {
+    const mensagem = "CUIDADO: Você deseja apagar TODAS as marcas? Isso excluirá todos os brinquedos associados a elas automaticamente. Deseja prosseguir?";
+
+    if (window.confirm(mensagem)) {
       try {
         await api.post('/marcas/deletar-varios', todosIds);
         fecharExclusao();
-        alert("Todas as marcas foram removidas.");
+        alert("Todas as marcas e seus respectivos brinquedos foram removidos.");
       } catch (err) { 
         alert("Erro ao excluir todas as marcas."); 
       }

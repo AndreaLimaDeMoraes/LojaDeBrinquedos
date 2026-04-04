@@ -30,10 +30,9 @@ public class MarcaService {
     
 	@Transactional
 	public boolean deletar(Long id) {
-        if(marcaRepository.existsById(id)){
-            marcaRepository.deleteById(id);
+		return marcaRepository.findById(id).map(marca -> {
+            marcaRepository.delete(marca);
             return true;
-        }
-        return false;
+        }).orElse(false);
     }
 }

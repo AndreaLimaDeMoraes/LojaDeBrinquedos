@@ -42,29 +42,30 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	    http
-	    	.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 	        .csrf(csrf -> csrf.disable())
-	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // API sem estado
+	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authorizeHttpRequests(auth -> auth
-	        	    // 1. Libera tudo que for do tipo GET para qualquer um (público)
-	        	    .requestMatchers(HttpMethod.GET, "/brinquedos/**").permitAll()
-	        	    .requestMatchers(HttpMethod.GET, "/categorias/**").permitAll()
-	        	    .requestMatchers(HttpMethod.GET, "/marcas/**").permitAll()
-	        	    
-	        	    // 2. Libera o login e cadastro para todos
-	        	    .requestMatchers("/auth/**").permitAll()
+	            // 1. Liberação de GETs (Público)
+	            // Adicionei "/brinquedos" e "/marcas" sem o "**" para garantir o match na raiz da rota
+	            .requestMatchers(HttpMethod.GET, "/brinquedos", "/brinquedos/**").permitAll()
+	            .requestMatchers(HttpMethod.GET, "/categorias", "/categorias/**").permitAll()
+	            .requestMatchers(HttpMethod.GET, "/marcas", "/marcas/**", "/marca", "/marca/**").permitAll()
+	            
+	            // 2. Libera login e cadastro
+	            .requestMatchers("/auth/**").permitAll()
 
-	        	    // 3. Qualquer outra operação (POST, PUT, DELETE) nesses endpoints exige ADMIN
-	        	    .requestMatchers("/brinquedos/**").hasRole("ADMIN")
-	        	    .requestMatchers("/categorias/**").hasRole("ADMIN")
-	        	    .requestMatchers("/marcas/**").hasRole("ADMIN")
-	        	    
-	        	    // 4. O resto (como /usuarios/me) precisa estar apenas logado
-	        	    .anyRequest().authenticated()
+	            // 3. Operações Restritas (ADMIN)
+	            // Aqui o Spring vai exigir que o Token tenha o Role "ROLE_ADMIN"
+	            .requestMatchers("/brinquedos/**").hasRole("ADMIN")
+	            .requestMatchers("/categorias/**").hasRole("ADMIN")
+	            .requestMatchers("/marcas/**").hasRole("ADMIN")
+	            .requestMatchers("/marca/**").hasRole("ADMIN")
+	            
+	            // 4. Qualquer outra coisa exige apenas estar logado
+	            .anyRequest().authenticated()
 	        );
 	    
-	  
-		// Diz para o Spring usar seu filtro de JWT antes do filtro padrão de Username/Password
 	    http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 	    return http.build();

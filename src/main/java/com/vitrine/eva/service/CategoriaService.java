@@ -53,17 +53,17 @@ public class CategoriaService {
 	
 	 @Transactional
 	    public boolean deletar(Long id) {
-	        if (categoriaRepository.existsById(id)) {
-	            categoriaRepository.deleteById(id);
-	            return true;
-	        }
-	        return false;
-	    }
+		 return categoriaRepository.findById(id).map(categoria -> {
+		        categoriaRepository.delete(categoria);
+		        return true;
+		    }).orElse(false);
+		}
 	 
 	 @Transactional
 	 public void deletarVarios(List<Long> ids) {
 	     // deleteAllByIdInBatch mais rápido pois faz um único comando SQL
-	     categoriaRepository.deleteAllByIdInBatch(ids);
+		 List<Categoria> categorias = categoriaRepository.findAllById(ids);
+		    categoriaRepository.deleteAll(categorias);
 	 }
 	
 	
