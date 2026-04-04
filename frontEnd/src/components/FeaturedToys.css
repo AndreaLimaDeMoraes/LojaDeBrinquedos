@@ -1,0 +1,97 @@
+
+.featured-toys h2 {
+  .section-title {
+  	font-family: 'Quicksand', 'Poppins', sans-serif;
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--toy-peach); /* mesma identidade visual */
+    text-align: center;
+    margin-bottom: 10px;
+}
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+
+.section-title-wrapper {
+  flex: 1;
+  text-align: center;
+  
+}
+
+.section-title {
+  font-family: 'Quicksand', 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--toy-peach); /* mesma identidade visual */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.view-all {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--dusk-blue);
+  cursor: pointer;
+}
+
+/* Grid estilo vitrine */
+.toys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card simples e limpo */
+.toy-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+.toy-image {
+  height: 220px;
+  background-color: var(--toy-peach);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toy-emoji {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+/* Texto */
+.toy-info {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.toy-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--dusk-blue);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+
+.toy-category {
+  font-size: 0.8rem;
+  color: #777;
+}

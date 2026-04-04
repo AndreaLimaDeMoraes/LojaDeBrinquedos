@@ -1,0 +1,202 @@
+.sobre-container {
+  padding: 40px 20px; 
+  background-color: #ffffff;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.sobre-header h1 {
+  color: #fd9272;
+  font-size: 2.8rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.sobre-header p {
+  color: #5bbccf; 
+  font-size: 1.1rem;
+  margin-bottom: 40px; 
+  font-weight: 500;
+}
+
+.equipe-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.membro-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.foto-wrapper {
+  width: 160px; 
+  height: 160px;
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 4px dashed #ffb7ce; 
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.foto-placeholder-new {
+  width: 100%;
+  height: 100%;
+  background: #fcf3c3;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.membro-circle:hover {
+  transform: scale(1.05);
+}
+
+.membro-circle:hover .foto-wrapper {
+  border-style: solid;
+  border-color: #77d3e7; 
+  box-shadow: 0 0 20px rgba(119, 211, 231, 0.5); 
+  transform: none;
+}
+
+.membro-circle h3 {
+  color: #4a4a4a; 
+  font-size: 1.1rem;
+  margin: 5px 0;
+  font-weight: 700;
+}
+
+.cargo-text {
+  color: #e87a5a; 
+  font-size: 0.9rem;
+  font-weight: 700; /* Negrito para ajudar na visibilidade */
+  margin-bottom: 3px;
+}
+
+.ra-text {
+  color: #7a7a7a; 
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Efeito Bounce (Opção 1 escolhida) */
+.membro-circle:hover .foto-wrapper {
+  border-style: solid;
+  border-color: #77d3e7;
+  transform: scale(1.1);
+  box-shadow: 0 15px 35px rgba(119, 211, 231, 0.2);
+}
+
+/* MODAL STYLES */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Escurece o fundo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px); /* Efeito de desfoque no fundo */
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 30px;
+  max-width: 450px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  animation: modalShow 0.3s ease-out;
+}
+
+@keyframes modalShow {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.close-button:hover { color: #fd9272; }
+
+.modal-header h2 {
+  color: #4a4a4a;
+  margin-top: 10px;
+}
+
+.modal-icon {
+  font-size: 4rem;
+  background: #fcf3c3;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.modal-cargo {
+  color: #fd9272;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.modal-bio {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.modal-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.link-btn {
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 700;
+  transition: all 0.2s;
+  color: white;
+}
+
+.github { background-color: #333; }
+.linkedin { background-color: #0077b5; }
+
+.link-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
