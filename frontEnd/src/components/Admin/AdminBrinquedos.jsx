@@ -58,18 +58,23 @@ const AdminBrinquedos = () => {
     if (selecionados.length === 0) return alert("Selecione ao menos um item.");
     if (window.confirm(`Deseja excluir os ${selecionados.length} brinquedos?`)) {
       try {
-        await api.delete('/brinquedos/excluir-varios', { data: selecionados });
+        await api.post('/brinquedos/excluir-varios', selecionados);
         fecharExclusao();
-      } catch (err) { alert("Erro ao excluir."); }
+      } catch (err) { 
+        alert("Erro ao excluir. Verifique o console."); 
+      }
     }
   };
 
   const handleExcluirTudo = async () => {
+    const todosIds = brinquedos.map(b => b.id);
     if (window.confirm("CUIDADO: Apagar TODOS os brinquedos?")) {
       try {
-        await api.delete('/brinquedos/excluir-varios', { data: brinquedos.map(b => b.id) });
+        await api.post('/brinquedos/excluir-varios', todosIds);
         fecharExclusao();
-      } catch (err) { alert("Erro ao excluir tudo."); }
+      } catch (err) { 
+        alert("Erro ao excluir tudo."); 
+      }
     }
   };
 
@@ -200,11 +205,14 @@ const AdminBrinquedos = () => {
             <select className="toy-input" value={brinquedoSelecionado.idadeRecomendada} 
               onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, idadeRecomendada: e.target.value})}>
               <option value="">Selecione...</option>
-              <option value="0-2 anos">0-2 anos</option>
-              <option value="3-5 anos">3-5 anos</option>
-              <option value="6-10 anos">6-10 anos</option>
-              <option value="11-14 anos">11-14 anos</option>
-              <option value="Livre">Livre</option>
+              {/* OPÇÕES ATUALIZADAS AQUI */}
+              <option value="Bebês: 0-12 meses">Bebês: 0-12 meses</option>
+              <option value="Bebês: 1-2 anos">Bebês: 1-2 anos</option>
+              <option value="Crianças: 3-5 anos">Crianças: 3-5 anos</option>
+              <option value="Crianças: 6-10 anos">Crianças: 6-10 anos</option>
+              <option value="Crianças: até 12 anos">Crianças: até 12 anos</option>
+              <option value="Adolescentes: 13-17 anos">Adolescentes: 13-17 anos</option>
+              <option value="Para todas as idades">Para todas as idades</option>
             </select>
           </div>
         </div>
@@ -264,7 +272,6 @@ const AdminBrinquedos = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 {excluindo && <input type="checkbox" checked={selecionados.includes(brin.id)} readOnly />}
                 
-                {/* ALTERAÇÃO AQUI: Mostra a primeira imagem real ou o emoji se não houver */}
                 {brin.imagens && brin.imagens.length > 0 ? (
                   <img 
                     src={brin.imagens[0]} 
