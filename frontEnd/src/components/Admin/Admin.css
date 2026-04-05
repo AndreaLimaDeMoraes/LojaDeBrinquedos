@@ -1,0 +1,288 @@
+/* ==========================================================================
+   ESTILO GLOBAL E FONTES
+   ========================================================================== */
+body, button, input, select, textarea {
+  font-family: 'Quicksand', sans-serif !important;
+  color: #5a5a5a;
+}
+
+:root {
+  --toy-peach: #fd9272;     /* Pêssego Fox Kids */
+  --toy-blue: #77d3e7;      /* Azul céu */
+  --toy-mint: #d4edda;      /* Menta suave */
+  --toy-pink: #ffd7e3;      /* Rosa bebê */
+  --toy-bg: #fcf3c3;        /* Fundo amarelinho */
+  --toy-shadow: rgba(255, 183, 161, 0.12);
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL
+   ========================================================================== */
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  background-color: var(--toy-bg);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 8px 0 20px rgba(0,0,0,0.02);
+  z-index: 10;
+}
+
+.sidebar h2 {
+  color: var(--toy-peach);
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.nav-button {
+  width: 100%;
+  padding: 16px 25px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.nav-button:hover, .nav-button.active {
+  background-color: var(--toy-pink);
+  color: var(--toy-peach);
+  border-color: var(--toy-peach);
+}
+
+/* Painel de Conteúdo */
+.main-content {
+  flex: 1;
+  padding: 50px;
+  overflow-y: auto;
+}
+
+.content-card {
+  background: white;
+  border-radius: 35px;
+  padding: 45px;
+  box-shadow: 0 15px 40px var(--toy-shadow);
+  min-height: 80vh;
+}
+
+/* ==========================================================================
+   CONTROLES (BUSCA E FILTROS)
+   ========================================================================== */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.controls-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  width: 100%; /* Garante que o grupo use a largura total do card */
+}
+
+.search-bar {
+  flex: 1; /* AJUSTE: Faz a barra de busca se alongar */
+  border: 2px solid #f0f0f0;
+  padding: 12px 25px;
+  border-radius: 25px;
+  outline: none;
+  background-color: #fafafa;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.filter-select {
+  width: 150px;
+  border: 2px solid #f0f0f0;
+  padding: 12px 15px;
+  border-radius: 25px;
+  outline: none;
+  background-color: #fafafa;
+  cursor: pointer;
+}
+
+.search-bar:focus, .filter-select:focus {
+  border-color: var(--toy-blue);
+  background-color: white;
+}
+
+/* ==========================================================================
+   LISTAGEM DE ITENS
+   ========================================================================== */
+.items-container {
+  border: 1px solid #f0f0f0;
+  border-radius: 25px;
+  padding: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.item-row {
+  padding: 15px 25px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.item-row:hover {
+  background-color: #fff9f0;
+  border-color: var(--toy-pink);
+  transform: scale(1.01);
+}
+
+/* ==========================================================================
+   USUÁRIOS (AVATAR E TAGS)
+   ========================================================================== */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.role-tag {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #eee;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.role-tag.admin {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+/* ==========================================================================
+   BOTÕES E AÇÕES
+   ========================================================================== */
+.actions-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  padding: 14px 30px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+}
+
+.btn-add { background-color: var(--toy-blue); }
+.btn-del { background-color: var(--toy-peach); }
+
+.btn-action:hover {
+  filter: brightness(1.08);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.btn-action:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   FORMULÁRIOS
+   ========================================================================== */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-weight: 700;
+  color: var(--toy-peach);
+  margin-left: 15px;
+  font-size: 0.95rem;
+}
+
+.toy-input {
+  border: 2px solid #f0f0f0;
+  padding: 15px 25px;
+  border-radius: 30px;
+  outline: none;
+  background-color: #fafafa;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.toy-input:focus {
+  border-color: var(--toy-blue);
+  background-color: white;
+  box-shadow: 0 0 15px rgba(119, 211, 231, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d0d0d0;
+}

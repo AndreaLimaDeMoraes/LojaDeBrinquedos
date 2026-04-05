@@ -1,0 +1,200 @@
+.produtos-page {
+  background-color: white;
+  min-height: 100vh;
+  padding: 10px 5% 50px; /* Padding top alto por causa do header fixo */
+  font-family: 'Quicksand', sans-serif;
+}
+
+.produtos-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.produtos-header h1 {
+  color: var(--toy-peach, #fd9272);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.produtos-header p {
+  color: #5bbccf;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.produtos-layout {
+  display: flex;
+  gap: 30px;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: flex-start; /* Para a sidebar não esticar até o fim da tela */
+}
+
+/* --- SIDEBAR DE FILTROS --- */
+.filtros-sidebar {
+  background: white;
+  padding: 25px;
+  border-radius: 25px;
+  width: 280px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border: 4px dashed var(--toy-pink, #ffd7e3);
+  position: sticky;
+  top: 100px; /* Faz a sidebar acompanhar o scroll */
+}
+
+.filtros-sidebar h3 {
+  color: #4a4a4a;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.filtro-grupo {
+  margin-bottom: 20px;
+}
+
+.filtro-grupo label {
+  display: block;
+  font-weight: 700;
+  color: #77d3e7;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.filtro-grupo select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #eee;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #fcfcfc;
+  cursor: pointer;
+}
+
+.filtro-grupo select:focus {
+  border-color: var(--toy-peach);
+  box-shadow: 0 0 10px rgba(253, 146, 114, 0.2);
+}
+
+.btn-limpar {
+  width: 100%;
+  padding: 12px;
+  background-color: #eee;
+  color: #666;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.btn-limpar:hover {
+  background-color: #ffb7ce;
+  color: white;
+}
+
+/* --- GRID DE PRODUTOS --- */
+.produtos-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.produto-card {
+  background: white;
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.04);
+  border: 4px dashed transparent; /* Invisível por padrão */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+/* O famoso efeito da sua namorada aplicado no Produto! */
+.produto-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--toy-blue, #77d3e7);
+  border-style: solid;
+  box-shadow: 0 15px 30px rgba(119, 211, 231, 0.2);
+}
+
+.produto-img-wrapper {
+  background-color: var(--toy-bg, #fcf3c3);
+  border-radius: 18px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.produto-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantém a proporção do brinquedo sem cortar */
+  border-radius: 15px;
+}
+
+.produto-card:hover .produto-img-wrapper {
+  transform: scale(1.05); /* A foto dá um zoomzinho no hover */
+}
+
+.produto-placeholder {
+  font-size: 4rem;
+}
+
+.produto-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.produto-info h4 {
+  color: #4a4a4a;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  flex: 1; /* Faz o título empurrar o botão pra baixo */
+}
+
+.produto-preco {
+  color: var(--toy-peach);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.btn-comprar {
+  background-color: var(--toy-blue);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.produto-card:hover .btn-comprar {
+  background-color: var(--toy-peach);
+  transform: scale(1.05);
+}
+
+.sem-produtos {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: #999;
+}
