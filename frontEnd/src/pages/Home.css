@@ -1,0 +1,113 @@
+body, button, input, select, textarea {
+  font-family: 'Quicksand', sans-serif !important;
+  color: #5a5a5a;
+}
+
+
+.home-container {
+  padding: 20px;
+  background-color: white;
+  min-height: 100vh;;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+}
+/* FAIXA DE NAVEGAÇÃO */
+.home-nav-bar {
+  width: 100%;
+  background-color: #fff5cc; /* amarelinho suave (como no print) */
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Conteúdo central da navegação */
+.home-nav {
+  max-width: 1200px;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  padding: 0.8rem 0;
+}
+
+/* Links */
+.home-nav span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.home-nav span:hover {
+  color: #000;
+}
+
+/*cápsula nos itens */
+.home-nav span {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.home-nav span:hover {
+  background-color: #ffb366; /* laranja suave */
+  color: #fff;
+}
+
+.home-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.home-divider {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 20px 0;
+}
+
+.status-message {
+  text-align: center;
+  margin-top: 50px;
+  color: #999;
+}
+
+.btn-action {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+  opacity: 0.8;
+}
+
+.btn-add { background-color: #3498db; color: white; }
+.btn-admin { background-color: #27ae60; color: white; }
+.btn-del { background-color: #e74c3c; color: white; }
+
+
+section-heading {
+    font-family: 'Quicksand', 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--toy-peach); /* mesma identidade visual */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+    margin-bottom: 30px;
+}

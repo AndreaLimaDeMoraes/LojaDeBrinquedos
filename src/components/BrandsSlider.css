@@ -1,0 +1,35 @@
+.brands {
+  background: var(--papaya-whip);
+  overflow: hidden;
+  padding: 4rem 0;
+}
+
+.brands-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.brands-track {
+  display: flex;
+  animation: scroll 20s linear infinite;
+  gap: 3rem;
+}
+
+.brand-item {
+  flex-shrink: 0;
+  padding: 1rem 2rem;
+  background: white;
+  border-radius: 10px;
+  font-weight: bold;
+  color: var(--dusk-blue);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

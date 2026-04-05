@@ -1,0 +1,63 @@
+.brands-section {
+  padding: 60px 0;
+  background-color: white;
+  margin-top: 40px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.brands-subtitle {
+  font-family: 'Quicksand', sans-serif;
+  color: #999;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.brands-container {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  /* Fade suave nas laterais */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.brands-track {
+  display: flex;
+  width: max-content;
+  gap: 100px;
+  animation: scroll-brands 40s linear infinite; /* Bem lento e elegante */
+}
+
+.brand-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilizando o NOME para parecer um logo */
+.brand-logo-mockup {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #777; /* Cor neutra inicial */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: lowercase; /* Estilo de logo tech */
+}
+
+.brand-logo-mockup:hover {
+  color: var(--toy-peach); /* Ganha cor no hover */
+  transform: scale(1.1);
+}
+
+@keyframes scroll-brands {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.brands-container:hover .brands-track {
+  animation-play-state: paused;
+}
