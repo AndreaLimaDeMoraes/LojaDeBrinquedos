@@ -30,58 +30,54 @@ const Login = () => {
 
     <div className="login-page">
 
-      {/* HEADER igual da home */}
-      <header className="home-header">
-        <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
-      </header>
+  {/* HEADER */}
+  <header className="home-header">
+    <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
+  </header>
 
-      <div className="login-layout">
+  <div className="login-center">
 
-        {/* LADO ESQUERDO (IMAGEM) */}
-        <div className="login-image">
-          <img src="/login-image.jpeg"/>
-        </div>
+    <div className="login-card">
 
-        {/* LADO DIREITO (LOGIN) */}
-        <div className="login-form-area">
+      {/* IMAGEM */}
+      <div className="login-card-image">
+        <img src="/login-image.jpeg" alt="login"/>
+      </div>
 
-          <div className="login-box">
+      {/* FORM */}
+      <div className="login-card-form">
 
-            <h2>Entrar</h2>
+        <h2>Entrar</h2>
 
-            <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin}>
 
-              <input
-                type="text"
-                placeholder="Usuário"
-                value={username}
-                onChange={(e)=>setUsername(e.target.value)}
-              />
+          <input
+            type="text"
+            placeholder="Usuário"
+            value={username}
+            onChange={(e)=>setUsername(e.target.value)}
+          />
 
-              <input
-                type="password"
-                placeholder="Senha"
-                value={senha}
-                onChange={(e)=>setSenha(e.target.value)}
-              />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e)=>setSenha(e.target.value)}
+          />
 
-              <button type="submit">
-                Entrar
-              </button>
+          <button type="submit">
+            Entrar
+          </button>
 
-            </form>
-
-            <p className="login-register">
-              Não tem conta? <Link to="/register">Criar conta</Link>
-            </p>
-
-          </div>
-
-        </div>
+        </form>
 
       </div>
 
     </div>
+
+  </div>
+
+</div>
 
   );
 };

@@ -25,7 +25,7 @@ const Register = () => {
       })
 
       alert("Conta criada com sucesso!")
-      window.location.href="/login"
+      window.location.href="/admin"
 
     }catch(err){
       alert("Erro ao registrar usuário")
@@ -35,24 +35,24 @@ const Register = () => {
 
   return (
 
-    <div className="login-page">
+     <div className="login-page">
 
-      {/* HEADER igual da home */}
+      {/* HEADER */}
       <header className="home-header">
         <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
       </header>
 
-      <div className="login-layout">
+      <div className="login-center">
 
-        {/* IMAGEM */}
-        <div className="login-image">
-          <img src="/login-image.jpeg" alt="login"/>
-        </div>
+        <div className="login-card">
 
-        {/* FORM */}
-        <div className="login-form-area">
+          {/* IMAGEM */}
+          <div className="login-card-image">
+            <img src="/login-image.jpeg" alt="register"/>
+          </div>
 
-          <div className="login-box">
+          {/* FORM */}
+          <div className="login-card-form">
 
             <h2>Criar Conta</h2>
 
@@ -80,14 +80,10 @@ const Register = () => {
               />
 
               <button type="submit">
-                Registrar
+                Criar Conta
               </button>
 
             </form>
-
-            <p className="login-register">
-              Já tem conta? <Link to="/login">Entrar</Link>
-            </p>
 
           </div>
 

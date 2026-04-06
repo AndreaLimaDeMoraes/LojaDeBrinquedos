@@ -3,6 +3,7 @@
   height:100vh;
   display:flex;
   flex-direction:column;
+  background-color: #fff8e0;
 }
 
 /* layout dividido */
@@ -33,7 +34,7 @@
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#f7f7f7;
+  background:#fff8e0;
 }
 
 /* bloco rosa */
@@ -57,6 +58,7 @@
   margin-bottom:15px;
   border-radius:8px;
   border:1px solid #ddd;
+  box-sizing:border-box;
 }
 
 /* botão */
@@ -66,9 +68,10 @@
   border:none;
   border-radius:8px;
   background:#5ec0d4;
-  color:white;
+  color:#ffffff;
   font-weight:bold;
   cursor:pointer;
+  box-sizing:border-box;
 }
 
 .login-box button:hover{
@@ -77,4 +80,86 @@
 
 .login-register{
   margin-top:15px;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background:#ffffff;
+}
+
+/* centraliza tudo */
+.login-center{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* card principal */
+.login-card{
+  display:flex;
+  width:800px;
+  height:420px;
+
+  border-radius:18px;
+  overflow:hidden;
+  backdrop-filter: blur(10px);
+
+  background:white;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* lado da imagem */
+.login-card-image{
+  flex:1;
+  background:url("/login-image.jpeg");
+}
+
+.login-card-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* lado do form */
+.login-card-form{
+  flex:1;
+  padding:40px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  background:#ffe4ea;
+}
+
+/* inputs */
+.login-card-form input{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  box-sizing:border-box;
+}
+
+/* botão */
+.login-card-form button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+
+  background:#5ec0d4;
+  color:white;
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+.login-card-form button:hover{
+  background:#4aa7bb;
 }
