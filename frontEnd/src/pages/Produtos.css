@@ -3,6 +3,7 @@
   min-height: 100vh;
   padding: 10px 5% 50px; /* Padding top alto por causa do header fixo */
   font-family: 'Quicksand', sans-serif;
+  padding-top: 90px;  /* Altura do header + espaço */
 }
 
 .produtos-header {

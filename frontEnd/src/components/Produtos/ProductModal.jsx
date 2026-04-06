@@ -1,5 +1,8 @@
 import React from 'react';
 import './ProductModal.css';
+import Footer from '../../components/Footer';
+
+
 
 const ProductModal = ({ produto, onClose }) => {
   if (!produto) return null;
@@ -7,6 +10,10 @@ const ProductModal = ({ produto, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
+	  
+	  
+	  
+	  
         <button className="modal-close" onClick={onClose}>&times;</button>
         
         <div className="modal-body">
