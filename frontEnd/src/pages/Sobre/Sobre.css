@@ -3,6 +3,8 @@
   background-color: #ffffff;
   min-height: 100vh;
   text-align: center;
+   margin-top: 100px;  /* Aumenta a distância do topo */
+  padding-top: 20px;
 }
 
 .sobre-header h1 {

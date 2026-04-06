@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/Footer';
 import './Sobre.css';
 
 const Sobre = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem('token');
   const [membroSelecionado, setMembroSelecionado] = useState(null);
 
   const equipe = [
@@ -44,57 +48,102 @@ const Sobre = () => {
   ];
 
   return (
-    <div className="sobre-container">
-      <div className="sobre-header">
-        <h1>Nossa Equipe Mágica 🌟</h1>
-        <p>Clique em um integrante para saber mais!</p>
-      </div>
-
-      <div className="equipe-grid">
-        {equipe.map((membro, index) => (
-          <div 
-            className="membro-circle" 
-            key={index} 
-            onClick={() => setMembroSelecionado(membro)}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="foto-wrapper">
-              <div className="foto-placeholder-new">
-                <span>{membro.icone}</span>
-              </div>
-            </div>
-            <h3>{membro.nome}</h3>
-            <p className="cargo-text">{membro.cargo}</p>
-            <span className="ra-text">RA {membro.ra}</span>
+    <div id="inicio" className="home-container">
+      {/* HEADER */}
+      <header className="home-header">
+        <div className="logo" onClick={() => navigate('/')}>
+          <div className="logo-capsula">
+            <h1 className="home-title">Eva Toys</h1>
           </div>
-        ))}
-      </div>
+          <img src="/rocking-horse.png" className="logo-icon" style={{ width: '40px', height: '40px', marginLeft: '20px' }} alt="logo" />
+        </div>
 
-      {/* MODAL */}
-      {membroSelecionado && (
-        <div className="modal-overlay" onClick={() => setMembroSelecionado(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={() => setMembroSelecionado(null)}>&times;</button>
-            
-            <div className="modal-header">
+        <nav className="header-nav">
+          <span onClick={() => navigate('/')}>Início</span>
+          <span onClick={() => navigate('/produtos')}>Produtos</span>
+          <span onClick={() => navigate('/categorias')}>Categorias</span>
+          <span onClick={() => navigate('/brinquedos')}>Brinquedos</span>
+          <span onClick={() => navigate('/marcas')}>Marcas</span>
+        </nav>
+
+        <div className="home-actions">
+          <button onClick={() => navigate('/sobre')} className="btn-action" style={{ backgroundColor: '#888', color: '#888' }}>
+            Sobre a Equipe
+          </button>
+
+          {isAuthenticated ? (
+            <>
+              <button onClick={() => navigate('/admin')} className="btn-action btn-admin">
+                Painel Admin
+              </button>
+              <button onClick={() => { localStorage.removeItem('token'); window.location.reload(); }} className="btn-action btn-del">
+                Sair
+              </button>
+            </>
+          ) : (
+            <button onClick={() => navigate('/login')} className="btn-action btn-add">
+              Entrar (Login)
+            </button>
+          )}
+        </div>
+      </header>
+
+      {/* CONTEÚDO DA PÁGINA SOBRE */}
+      <div className="sobre-container">
+        <div className="sobre-header">
+          <h1>Nossa Equipe Mágica 🌟</h1>
+          <p>Clique em um integrante para saber mais!</p>
+        </div>
+
+        <div className="equipe-grid">
+          {equipe.map((membro, index) => (
+            <div 
+              className="membro-circle" 
+              key={index} 
+              onClick={() => setMembroSelecionado(membro)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="foto-wrapper">
+                <div className="foto-placeholder-new">
+                  <span>{membro.icone}</span>
+                </div>
+              </div>
+              <h3>{membro.nome}</h3>
+              <p className="cargo-text">{membro.cargo}</p>
+              <span className="ra-text">RA {membro.ra}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* MODAL */}
+        {membroSelecionado && (
+          <div className="modal-overlay" onClick={() => setMembroSelecionado(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="close-button" onClick={() => setMembroSelecionado(null)}>&times;</button>
+              
+              <div className="modal-header">
                 <span className="modal-icon">{membroSelecionado.icone}</span>
                 <h2>{membroSelecionado.nome}</h2>
                 <p className="modal-cargo">{membroSelecionado.cargo}</p>
-            </div>
-            
-            <p className="modal-bio">{membroSelecionado.bio}</p>
-            
-            <div className="modal-links">
-              <a href={membroSelecionado.github} target="_blank" rel="noreferrer" className="link-btn github">
-                GitHub
-              </a>
-              <a href={membroSelecionado.linkedin} target="_blank" rel="noreferrer" className="link-btn linkedin">
-                LinkedIn
-              </a>
+              </div>
+              
+              <p className="modal-bio">{membroSelecionado.bio}</p>
+              
+              <div className="modal-links">
+                <a href={membroSelecionado.github} target="_blank" rel="noreferrer" className="link-btn github">
+                  GitHub
+                </a>
+                <a href={membroSelecionado.linkedin} target="_blank" rel="noreferrer" className="link-btn linkedin">
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 };

@@ -22,7 +22,7 @@ const Footer = () => {
 		<div>
 		  <h4>Institucional</h4>
 		  <a href="#team-section" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
-		  <a href="#Sobre" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
+		  <a href="/sobre" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
 		</div>
 		
 		<div>
