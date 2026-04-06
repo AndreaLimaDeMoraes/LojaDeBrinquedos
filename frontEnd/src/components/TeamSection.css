@@ -3,9 +3,9 @@
   background: var(--papaya-whip);
 }
 
-/* 🔥 BANNER SUPERIOR */
+/* BANNER SUPERIOR */
 .team-banner {
-  background: #eaf6f6; /* pode trocar por var(--toy-bg) se tiver */
+  background: #eaf6f6; 
   border-radius: 40px;
   padding: 3rem;
   display: flex;
@@ -25,12 +25,14 @@
   font-weight: 800;
   color: var(--toy-blue);
   margin-bottom: 1rem;
+  text-align: left;
 }
 
 .team-banner-text p {
   color: var(--gray);
   margin-bottom: 1.5rem;
   line-height: 1.5;
+  text-align: left;
 }
 
 /* ILUSTRAÇÃO (lado direito) */
@@ -68,6 +70,7 @@
 .team-card:hover {
   transform: scale(1.05);
   z-index: 10;
+   text-align: left;
 }
 
 /* Efeito no texto dentro do card */
