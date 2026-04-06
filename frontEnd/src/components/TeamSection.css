@@ -43,6 +43,7 @@
   cursor: pointer;
  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
   transition: filter 0.3s ease;  
+  
  
 }
 
@@ -65,28 +66,32 @@
   padding: 1rem;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+   
 }
 
 .team-card:hover {
   transform: scale(1.05);
   z-index: 10;
-   text-align: left;
+  
 }
 
 /* Efeito no texto dentro do card */
 .team-card:hover h3 {
   color: var(--toy-peach);
   transition: color 0.3s ease;
+  
 }
 
 .team-card:hover p {
   color: #555;
   transition: color 0.3s ease;
+  
 }
 
 /* Cada círculo com sua própria animação */
 .team-card:nth-child(1) .team-image {
   animation: mudarCor1 9s infinite;
+  
 }
 
 .team-card:nth-child(2) .team-image {

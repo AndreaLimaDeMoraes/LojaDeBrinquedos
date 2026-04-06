@@ -9,55 +9,28 @@ const Footer = () => {
       marginTop: '2rem'
     }}>
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 5% 3rem',
         gap: '2rem',
-        padding: '0 5% 3rem'
+        flexWrap: 'wrap'
       }}>
-        <div>
+	  
+        <div style={{ flex: 1, textAlign: 'left' }}>
           <h4>Loja de Brinquedos</h4>
           <p>Levando alegria e diversão para crianças de todas as idades desde 2026.</p>
         </div>
 		
-		<div>
+		<div style={{ flex: 1, textAlign: 'right' }}>
 		  <h4>Institucional</h4>
 		  <a href="#team-section" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
 		  <a href="/sobre" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
-		</div>
-		
-		<div>
-		  <h4>Atendimento</h4>
-		  <a href="#central-ajuda" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Central de ajuda</a>
 		  <a href="#fale-conosco" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
-		  <a href="#trocas" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Trocas e devoluções</a>
 		</div>
 		
-        <div>
-          <h4>Newsletter</h4>
-          <p>Receba ofertas exclusivas</p>
-          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-		  
-            <input 
-              type="email" 
-              placeholder="Seu e-mail" 
-              style={{ 
-                flex: 1, 
-                padding: '0.5rem', 
-                border: 'none', 
-                borderRadius: '5px' 
-              }} 
-            />
-            <button style={{ 
-              padding: '0.5rem 1rem', 
-              background: '#CCD5AE', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer' 
-            }}>
-              📧
-            </button>
-          </div>
-        </div>
       </div>
       <div style={{ 
         textAlign: 'center', 
