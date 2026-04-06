@@ -10,10 +10,9 @@ const FeaturedToys = ({ brinquedos = [] }) => {
   if (featuredToys.length === 0) return null;
 
   return (
-    <section className="featured-toys">
-	  <div className="section-header">
+	<section id="destaques" className="featured-toys">	  <div className="section-header">
 	    <div className="section-title-wrapper">
-	      <h2 className="section-title">Brinquedos em Destaque</h2>
+	      <h2 className="section-title">Nossos Brinquedos</h2>
 	    </div>
 
 
@@ -51,11 +50,11 @@ const FeaturedToys = ({ brinquedos = [] }) => {
               </div>
 
               <div className="toy-category">
-                📁 {toy.categoria?.nome || 'Sem categoria'}
+                {toy.categoria?.nome || 'Sem categoria'}
               </div>
 
               <div className="toy-stock">
-                📦 Estoque: {toy.quantidadeEstoque ?? 0} un.
+                Estoque: {toy.quantidadeEstoque ?? 0} un.
               </div>
 
               <div className="toy-actions">

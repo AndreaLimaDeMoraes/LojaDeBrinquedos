@@ -56,6 +56,8 @@ public class BrinquedoService {
             brinquedo.setQuantidadeEstoque(dto.getQuantidadeEstoque());
             brinquedo.setDesconto(dto.getDesconto());
             brinquedo.setImagens(dto.getImagens());
+            brinquedo.setDestacar(dto.getDestacar());
+            brinquedo.setDtCriacao(dto.getDtCriacao());
             return toDTO(brinquedoRepository.save(brinquedo));
         });
     }
@@ -84,6 +86,9 @@ public class BrinquedoService {
         dto.setQuantidadeEstoque(b.getQuantidadeEstoque());
         dto.setDesconto(b.getDesconto());
         dto.setDataCadastro(b.getDataCadastro());
+        dto.setDestacar(b.getDestacar());
+        dto.setDtCriacao(b.getDtCriacao());
+        
         return dto;
     }
 
@@ -100,6 +105,15 @@ public class BrinquedoService {
         b.setIdadeRecomendada(dto.getIdadeRecomendada());
         b.setQuantidadeEstoque(dto.getQuantidadeEstoque());
         b.setDesconto(dto.getDesconto());
+        b.setDestacar(dto.getDestacar());
+        b.setDtCriacao(dto.getDtCriacao());
         return b;
+    }
+    
+    public List<BrinquedoDTO> listarPromocoes() {
+        return brinquedoRepository.findEmPromocao()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -37,6 +37,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
+  overflow: visible;
 }
 
 /* Card */
@@ -45,9 +46,18 @@
   transition: 
     transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     box-shadow 0.35s ease;
-    cursor: pointer;
-    animation: fadeUp 0.5s ease both;
+  cursor: pointer;
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  display: block; /* MUDA de flex para block */
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  overflow: visible; /* MUDA de hidden para visible */
+  width: 100%; /* Garante largura total */
 }
+
 
 
 @keyframes fadeUp {
@@ -125,4 +135,63 @@
 .toy-stock {
   font-size: 0.8rem;
   color: #777;
+}
+
+
+.toy-details-sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background: linear-gradient(135deg, #F8BBD0, #F48FB1); /* ROSA BEBÊ */
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  animation: slideIn 0.3s ease;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.toy-details-sidebar h4 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border-bottom: 2px solid white;
+  padding-bottom: 8px;
+}
+
+.toy-details-sidebar p {
+  margin: 10px 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.btn-buy {
+  margin-top: 15px;
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Ajuste para o card quando sidebar aparece */
+.toy-card:has(.toy-details-sidebar) {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }

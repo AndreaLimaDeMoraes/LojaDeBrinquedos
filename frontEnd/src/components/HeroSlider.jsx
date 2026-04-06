@@ -22,7 +22,17 @@ const HeroSlider = () => {
       <div className="slide-content">
         <h1>Bem-vindos à Loja de Brinquedos</h1>
         <p>O lugar onde a imaginação ganha vida!</p>
-        <button className="btn-primary">
+		
+
+		<button
+		  className="btn-primary"
+		  onClick={() => {
+		    document
+		      .getElementById('team-section')
+		      ?.scrollIntoView({ behavior: 'smooth' });
+		  }}
+		>
+
           Conheça a nossa loja
         </button>
       </div>

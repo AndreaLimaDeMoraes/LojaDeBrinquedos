@@ -59,4 +59,9 @@ public class BrinquedoController {
         ids.forEach(id -> brinquedoService.deletar(id));
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/promocoes")
+    public ResponseEntity<List<BrinquedoDTO>> listarPromocoes() {
+        return ResponseEntity.ok(brinquedoService.listarPromocoes());
+    }
 }

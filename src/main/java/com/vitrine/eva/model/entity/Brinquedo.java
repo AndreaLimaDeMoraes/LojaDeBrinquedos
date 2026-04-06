@@ -69,6 +69,11 @@ public class Brinquedo {
    @JoinColumn(name = "marca_id")
    private Marca marca;
 
+   @Column(name = "destacar")
+   private Boolean destacar;
+
+   @Column(name = "dt_criacao")
+   private String dtCriacao;
 	
 
 	//construtores
@@ -78,7 +83,7 @@ public class Brinquedo {
 
 	public Brinquedo(Long id, String nomeBrinquedo, List<String> imagens, String descricao, BigDecimal valor,
 			String fornecedor, String idadeRecomendada, Integer quantidadeEstoque, Double desconto,
-			LocalDateTime dataCadastro, Categoria categoria, Marca marca) {
+			LocalDateTime dataCadastro, Categoria categoria, Marca marca, Boolean destacar, String dtCriacao) {
 		super();
 		this.id = id;
 		this.nomeBrinquedo = nomeBrinquedo;
@@ -92,6 +97,8 @@ public class Brinquedo {
 		this.dataCadastro = dataCadastro;
 		this.categoria = categoria;
 		this.marca = marca;
+		this.destacar = destacar;
+	    this.dtCriacao = dtCriacao;
 	}
 
 
@@ -202,5 +209,19 @@ public class Brinquedo {
         this.dataCadastro = dataCadastro;
     }
 		
-	
+    public Boolean getDestacar() {
+        return destacar;
+    }
+
+    public void setDestacar(Boolean destacar) {
+        this.destacar = destacar;
+    }
+
+    public String getDtCriacao() {
+        return dtCriacao;
+    }
+
+    public void setDtCriacao(String dtCriacao) {
+        this.dtCriacao = dtCriacao;
+    }
 }

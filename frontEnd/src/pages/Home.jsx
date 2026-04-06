@@ -4,6 +4,7 @@ import api from '../services/api';
 import CategoryCarousel from '../components/Categoria/CategoryCarousel';
 import './Home.css';
 import BrandCarousel from '../components/Marcas/BrandCarousel';
+import DiscountedToys from '../components/DiscountedToys';
 
 // Foto que aparece no começo (carrossel de fotos iniciais) 
 import HeroSlider from '../components/HeroSlider';
@@ -70,9 +71,65 @@ const Home = () => {
 
   return (
 	
-    <div className="home-container">
+   <div id="inicio" className="home-container">
       <header className="home-header">
-        <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
+        <h1 className="home-title">Eva Toys 🧸</h1>
+
+		{/* MENU CENTRAL */}
+		  <nav className="header-nav">
+
+
+		  <span
+		    onClick={() =>
+		      document
+		        .getElementById('inicio')
+		        ?.scrollIntoView({ behavior: 'smooth' })
+		    }
+		  >
+		    Início
+		  </span>
+
+
+		   <span onClick={() => navigate('/produtos')}>
+		     Produtos
+		   </span>
+		   
+		   <span
+		       onClick={() =>
+		         document
+		           .getElementById('categorias')
+		           ?.scrollIntoView({ behavior: 'smooth' })
+		       }
+		     >
+		       Categorias
+		     </span>
+
+		   <span
+		     onClick={() =>
+		       document
+		         .getElementById('destaques')
+		         ?.scrollIntoView({ behavior: 'smooth' })
+		     }
+		   >
+		     Brinquedos
+		   </span>
+
+		   
+
+		   <span
+		     onClick={() =>
+		       document
+		         .getElementById('marcas')
+		         ?.scrollIntoView({ behavior: 'smooth' })
+		     }
+		   >
+		     Marcas
+		   </span>
+
+			
+			
+		  </nav>
+
         
         <div className="home-actions">
 		
@@ -109,30 +166,28 @@ const Home = () => {
 		
 		
       </header>
+	  
 	  {/* Navegação principal */}
 
-	  <nav className="home-nav-bar">
-	    <div className="home-nav">
-	      <span onClick={() => navigate('/')}>Início</span>
-	      <span onClick={() => navigate('/produtos')}>Produtos</span>
-		  
-		  <span onClick={() => navigate('/brinquedos')}>Destaques</span>
-
-		  <span onClick={() =>
-		    document.getElementById('marcas')?.scrollIntoView({ behavior: 'smooth' })
-		  }>
-		    Marcas
-		  </span>
-
-
-	    </div>
-	  </nav>
 
 	  {/* Hero Slider com Carrossel de Boas Vindas */}
 	  <HeroSlider />
 		   
-	      
-      <hr className="home-divider" />
+	  
+	  {/* BRINQUEDOS */}
+
+	  
+	  {/* Brinquedos */}
+	  	      {brinquedos && (
+	  	        <FeaturedToys
+	  	          brinquedos={brinquedos}
+	  	          onSelect={setprodutoModal}
+	  	        />
+	  	      )}
+			  
+			  <hr className="home-divider" />
+
+			  {/* CATEGORIAS */}
 
       {/* VERIFICAÇÃO DE ESTADO */}
 	  {error ? (
@@ -154,20 +209,21 @@ const Home = () => {
 	    </div>
 	  ) : (
 	    <>
-	      {/* Categorias */}
-	      <CategoryCarousel categories={categories} />
+		
+		{/* Categorias */}
+		<section id="categorias">
+		  <CategoryCarousel categories={categories} />
+		</section>
 
-	      {/* Brinquedos */}
-	      {brinquedos && (
-	        <FeaturedToys
-	          brinquedos={brinquedos}
-	          onSelect={setprodutoModal}
-	        />
-	      )}
+	 
 
 	      {/* Marcas */}
 	      <section id="marcas">
 	        <BrandCarousel />
+			
+			<hr className="home-divider" />
+					  {/* Promoções com desconto */}
+					      <DiscountedToys toys={brinquedos} />
 			
 			<hr className="home-divider" />
 			{/* Seção sobre a Loja */}

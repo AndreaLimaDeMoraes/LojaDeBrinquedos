@@ -28,4 +28,10 @@ public interface BrinquedoRepository extends JpaRepository<Brinquedo, Long> {
     
     // Buscar brinquedos por idade recomendada
     List<Brinquedo> findByIdadeRecomendada(String idade);
+    
+    List<Brinquedo> findByDestacarTrue();
+    
+    List<Brinquedo> findByDtCriacao(String dtCriacao);
+    
+    List<Brinquedo> findAllByOrderByDtCriacaoDesc();
 }

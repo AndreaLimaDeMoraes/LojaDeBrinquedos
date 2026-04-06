@@ -26,9 +26,11 @@ const about = [
   }
 ];
 
+
 const TeamSection = () => {
   return (
-    <section className="team">
+	
+    <section id="team-section" className="team">
       <h2 className="section-title">Sobre a Loja EVA 🧸</h2>
 	  
 	  {/* 🔥 BANNER */}
