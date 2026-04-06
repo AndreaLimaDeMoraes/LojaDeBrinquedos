@@ -73,8 +73,13 @@ const Home = () => {
   return (
 	
    <div id="inicio" className="home-container">
-      <header className="home-header">
-        <h1 className="home-title">Eva Toys 🧸</h1>
+   <header className="home-header">
+     <div className="logo" onClick={() => navigate('/')}>
+       <div className="logo-capsula">
+         <h1 className="home-title">Eva Toys</h1>
+       </div>
+       <img src="/rocking-horse.png" className="logo-icon" style={{ width: '40px', height: '40px', marginLeft: '20px' }} />
+     </div>
 
 		{/* MENU CENTRAL */}
 		  <nav className="header-nav">

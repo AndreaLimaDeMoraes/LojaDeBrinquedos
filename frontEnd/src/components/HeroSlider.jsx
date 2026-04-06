@@ -9,7 +9,7 @@ const HeroSlider = () => {
       <div
         className="slide-bg"
         style={{
-          backgroundImage: "url('room.jpg')",
+          backgroundImage: "url('azulIris.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}

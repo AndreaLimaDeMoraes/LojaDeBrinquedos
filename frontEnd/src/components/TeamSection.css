@@ -210,6 +210,15 @@
   line-height: 1.5;
 }
 
+#team-section {
+  text-align: center;
+}
+
+.section-title {
+  text-align: center;
+  width: 100%;
+}
+
 
 
 /* ===== SEÇÃO DE INFORMAÇÕES DA LOJA (FORA DO MEDIA) ===== */

@@ -1,8 +1,9 @@
 .hero-slider {
   position: relative;
-  height: 300px;
+  height: 350px;
   overflow: hidden;
   margin-top: 5px;
+  
 }
 
 .slide {
@@ -40,13 +41,17 @@
 
 .slide-content {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
-  width: 80%;
+  width: 70%;
+  max-width: 800px;
+  padding: 20px; 
   z-index: 2;
+  
+  
 }
 
 .slide-content h1 {

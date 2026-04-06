@@ -4,7 +4,7 @@ import './FeaturedToys.css';
 const FeaturedToys = ({ brinquedos = [] }) => {
 
 	  const featuredToys = Array.isArray(brinquedos)
-    ? brinquedos.slice(0, 6)
+    ? brinquedos.slice(0, 5)
     : [];
 
   if (featuredToys.length === 0) return null;

@@ -67,7 +67,7 @@ const TeamSection = () => {
       </div>
 	  <hr className="home-divider" />
 	  
-	  <div className="store-header">
+	  <div id="fale-conosco" className="store-header">
 	  	      <h3>Fale Conosco</h3>
 	  	      <p>Estamos aqui para ajudar e responder suas perguntas</p>
 	  	    </div>

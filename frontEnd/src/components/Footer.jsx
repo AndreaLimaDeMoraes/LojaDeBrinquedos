@@ -19,18 +19,18 @@ const Footer = () => {
           <p>Levando alegria e diversão para crianças de todas as idades desde 2026.</p>
         </div>
 		
-        <div>
-          <h4>Institucional</h4>
-          <a href="#" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
-          <a href="#" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
-        </div>
+		<div>
+		  <h4>Institucional</h4>
+		  <a href="#team-section" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
+		  <a href="#Sobre" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
+		</div>
 		
-        <div>
-          <h4>Atendimento</h4>
-          <a href="#" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Central de ajuda</a>
-          <a href="#" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
-          <a href="#" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Trocas e devoluções</a>
-        </div>
+		<div>
+		  <h4>Atendimento</h4>
+		  <a href="#central-ajuda" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Central de ajuda</a>
+		  <a href="#fale-conosco" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
+		  <a href="#trocas" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Trocas e devoluções</a>
+		</div>
 		
         <div>
           <h4>Newsletter</h4>
