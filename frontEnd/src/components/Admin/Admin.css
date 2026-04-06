@@ -31,9 +31,11 @@ body, button, input, select, textarea {
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Empurra o conteúdo para cima e o botão voltar para baixo */
   gap: 15px;
   box-shadow: 8px 0 20px rgba(0,0,0,0.02);
   z-index: 10;
+  box-sizing: border-box;
 }
 
 .sidebar h2 {
@@ -54,12 +56,38 @@ body, button, input, select, textarea {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+  margin-bottom: 10px;
 }
 
 .nav-button:hover, .nav-button.active {
   background-color: var(--toy-pink);
   color: var(--toy-peach);
   border-color: var(--toy-peach);
+}
+
+/* NOVO: Botão de Voltar na Sidebar */
+.sidebar-back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 50px;
+  border: 2px solid #f0f0f0;
+  background: white;
+  color: #888;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto; /* Garante o posicionamento no rodapé da sidebar */
+}
+
+.sidebar-back-button:hover {
+  background-color: var(--toy-blue);
+  color: white;
+  border-color: var(--toy-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(119, 211, 231, 0.3);
 }
 
 /* Painel de Conteúdo */
@@ -91,11 +119,11 @@ body, button, input, select, textarea {
   display: flex;
   gap: 15px;
   margin-bottom: 25px;
-  width: 100%; /* Garante que o grupo use a largura total do card */
+  width: 100%; 
 }
 
 .search-bar {
-  flex: 1; /* AJUSTE: Faz a barra de busca se alongar */
+  flex: 1; 
   border: 2px solid #f0f0f0;
   padding: 12px 25px;
   border-radius: 25px;

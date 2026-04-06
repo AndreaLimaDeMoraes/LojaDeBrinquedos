@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importando para navegação
+import { FaHome } from 'react-icons/fa'; // Ícone de casinha
 import "../components/Admin/Admin.css";
 import AdminCategorias from '../components/Admin/AdminCategorias';
 import AdminMarcas from '../components/Admin/AdminMarcas';
@@ -6,10 +8,9 @@ import AdminBrinquedos from '../components/Admin/AdminBrinquedos';
 import AdminUsuarios from '../components/Admin/AdminUsuarios';
 
 const AdminPage = () => {
-  // Estado para saber qual aba está ativa
+  const navigate = useNavigate();
   const [abaAtiva, setAbaAtiva] = useState('categorias');
 
-  // Função para renderizar o componente baseado na escolha do menu
   const renderizarComponente = () => {
     switch (abaAtiva) {
       case 'categorias': return <AdminCategorias />;
@@ -23,30 +24,37 @@ const AdminPage = () => {
   return (
     <div className="admin-layout">
       <aside className="sidebar">
-        <h2>Administração</h2>
-        <button 
-          className={`nav-button ${abaAtiva === 'categorias' ? 'active' : ''}`}
-          onClick={() => setAbaAtiva('categorias')}
-        >
-          1 - Categorias
-        </button>
-        <button 
-          className={`nav-button ${abaAtiva === 'marcas' ? 'active' : ''}`}
-          onClick={() => setAbaAtiva('marcas')}
-        >
-          2 - Marcas
-        </button>
-        <button 
-          className={`nav-button ${abaAtiva === 'brinquedos' ? 'active' : ''}`}
-          onClick={() => setAbaAtiva('brinquedos')}
-        >
-          3 - Brinquedos
-        </button>
-        <button 
-          className={`nav-button ${abaAtiva === 'usuarios' ? 'active' : ''}`}
-          onClick={() => setAbaAtiva('usuarios')}
-        >
-          4 - Usuários
+        <div>
+          <h2>Administração</h2>
+          <button 
+            className={`nav-button ${abaAtiva === 'categorias' ? 'active' : ''}`}
+            onClick={() => setAbaAtiva('categorias')}
+          >
+            1 - Categorias
+          </button>
+          <button 
+            className={`nav-button ${abaAtiva === 'marcas' ? 'active' : ''}`}
+            onClick={() => setAbaAtiva('marcas')}
+          >
+            2 - Marcas
+          </button>
+          <button 
+            className={`nav-button ${abaAtiva === 'brinquedos' ? 'active' : ''}`}
+            onClick={() => setAbaAtiva('brinquedos')}
+          >
+            3 - Brinquedos
+          </button>
+          <button 
+            className={`nav-button ${abaAtiva === 'usuarios' ? 'active' : ''}`}
+            onClick={() => setAbaAtiva('usuarios')}
+          >
+            4 - Usuários
+          </button>
+        </div>
+
+        {/* BOTÃO DE VOLTAR NA SIDEBAR */}
+        <button className="sidebar-back-button" onClick={() => navigate('/')}>
+          <FaHome /> Voltar para o Site
         </button>
       </aside>
 
