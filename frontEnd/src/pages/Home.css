@@ -1,0 +1,223 @@
+body, button, input, select, textarea {
+  font-family: 'Quicksand', sans-serif !important;
+  color: #5a5a5a;
+}
+
+
+.home-container {
+  padding: 20px;
+  background-color: white;
+  min-height: 100vh;;
+}
+
+
+.home-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 5%;
+
+  background-color: #ffffff; /* branco REAL */
+  opacity: 1;                /* garante opacidade */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+
+/* FAIXA DE NAVEGAÇÃO */
+
+.home-nav-bar {
+  position: sticky;
+  top: 70px;              /* gruda logo abaixo do header */
+  z-index: 900;
+
+  width: 100%;
+  background-color: #fff5cc;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+
+/* Conteúdo central da navegação */
+.home-nav {
+  max-width: 1200px;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  padding: 0.8rem 0;
+}
+
+/* Links */
+.home-nav span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.home-nav span:hover {
+  color: #000;
+}
+
+/*cápsula nos itens */
+.home-nav span {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.home-nav span:hover {
+  background-color: #ffb366; /* laranja suave */
+  color: #fff;
+}
+
+.home-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.home-divider {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 20px 0;
+}
+
+.status-message {
+  text-align: center;
+  margin-top: 50px;
+  color: #999;
+}
+
+.btn-action {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+  opacity: 0.8;
+}
+
+.btn-add { background-color: #3498db; color: white; }
+.btn-admin { background-color: #27ae60; color: white; }
+.btn-del { background-color: #e74c3c; color: white; }
+
+
+section-heading {
+    font-family: 'Quicksand', 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--toy-peach); /* mesma identidade visual */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+section {
+  scroll-margin-top: 90px; /* altura do header fixo */
+}
+
+
+/* MENU CENTRAL NO HEADER */
+.header-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;              /* 👈 espaçamento  entre os links */
+}
+
+.header-nav span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  white-space: nowrap;   /* 👈 evita colar/queimar texto */
+  padding: 4px 6px;      /* 👈 área de clique confortável */
+  transition: color 0.2s ease;
+}
+
+.header-nav span:hover {
+  color: #000;
+}
+
+/* Remove aparência de botão dos itens da direita */
+.home-actions .btn-action,
+.home-actions .btn-admin,
+.home-actions .btn-del,
+.home-actions .btn-add {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+
+  padding: 4px 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+
+  cursor: pointer;
+}
+
+/* Hover igual ao menu principal */
+.home-actions .btn-action:hover,
+.home-actions .btn-admin:hover,
+.home-actions .btn-del:hover,
+.home-actions .btn-add:hover {
+  color: #000;
+  
+gap: 32px;          /* distância ENTRE Equipe, Admin e Sair */
+  margin-left: 40px; /* distância ENTRE menu central e esse grupo */
+  
+}
+
+* Garante que o fundo vermelho apareça */
+.home-header .home-actions .btn-del {
+  background-color: #e74c3c !important;
+  color: #ffffff !important;
+
+  width: auto;                 /* 🔴 deixa o texto respirar */
+  min-width: 44px;
+  height: 36px;
+
+  padding: 0;            /* 🔴 espaço lateral para “SAIR” */
+  border-radius: 999px;        /* círculo/pílula */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  opacity: 1 !important;       /* 🔴 evita “sumir” */
+  line-height: 1;
+}
+
+/* Hover visível */
+.home-header .home-actions .btn-del:hover {
+  background-color: #c0392b !important;
+  opacity: 1 !important;
+}
+

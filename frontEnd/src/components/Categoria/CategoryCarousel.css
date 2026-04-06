@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+
+:root {
+  --toy-peach: #fd9272;     /* Pêssego Fox Kids */
+  --toy-blue: #77d3e7;      /* Azul céu */
+  --toy-mint: #d4edda;      /* Menta suave */
+  --toy-pink: #ffd7e3;      /* Rosa bebê */
+  --toy-bg: #fcf3c3;        /* Fundo amarelinho */
+  --toy-shadow: rgba(255, 183, 161, 0.12);
+}
+
+.category-carousel-container {
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    /* Fade lateral */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.carousel-title {
+  color: #fd9272;
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.carousel-subtitle {
+  display: block; /* MÁGICA AQUI: faz o elemento ocupar a linha toda e respeitar margens */
+  color: #5bbccf; 
+  font-size: 1.1rem;
+  margin-bottom: 40px; /* Use margin em vez de padding para afastar o carrossel */
+  font-weight: 400;
+  z-index: 100;
+}
+
+.slider-wrapper {
+    width: 100%;
+    overflow: visible;
+    display: flex;
+    margin-bottom: 10px; /* Aumentei o espaço para o card crescer sem atropelar o outro */
+}
+
+.slider-track {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+}
+
+.slider-track:hover {
+    animation-play-state: paused;
+}
+
+/* --- ESTILO DO CARD --- */
+
+.category-wrapper{
+  width: 180px; 
+  min-height: 140px;
+  background: white;
+  border-radius: 20%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 4px dashed #ffb7ce; 
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.category-wrapper:hover {
+  transform: translateY(-6px) scale(1.5) rotate(var(--rotation)); /* Aumenta bem o tamanho */
+  border-style: solid;
+  border-color: #77d3e7; 
+  box-shadow: 0 0 20px rgba(119, 211, 231, 0.5); 
+  transform: none;
+}
+
+
+.category-card {
+    flex: 0 0 auto;
+    width: 130px;
+    min-height: 90px;
+    background-color: var(--toy-mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.08),
+        0 4px 6px rgba(0, 0, 0, 0.05);
+
+    padding: 18px;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease,
+        border 0.3s ease;
+
+    position: relative;
+    overflow: hidden;
+    --rotation: 0deg;
+}
+
+/* brilho suave (efeito "plástico fofo") */
+.category-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+
+
+/* click (feedback tátil) */
+.category-card:active {
+    transform: scale(0.97);
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- EFEITO AO PASSAR O MOUSE --- */
+
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.category-name {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.category-description {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.75rem;
+    text-align: center;
+    
+    /* Estado inicial escondido */
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Mostra a descrição no Hover */
+.category-card:hover .category-description {
+    max-height: 100px; /* Altura suficiente para o texto */
+    opacity: 1;
+    margin-top: 12px;
+}
+
+/* --- ANIMAÇÕES DAS LINHAS --- */
+.scroll-left { animation: scroll-left 45s linear infinite; }
+.scroll-right { animation: scroll-right 50s linear infinite; }
+.scroll-left-slow { animation: scroll-left 70s linear infinite; }
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-33.33% - 30px)); }
+}
+
+@keyframes scroll-right {
+    0% { transform: translateX(calc(-33.33% - 30px)); }
+    100% { transform: translateX(0); }
+}
+
+/* --- ESTILO DO WRAPPER (A BORDA EXTERNA) --- */
+.category-wrapper {
+  width: 200px; /* Um pouco maior que o card interno */
+  min-height: 140px;
+  background: white;
+  border-radius: 30px; /* Ajustado para um visual mais fofo */
+  padding: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 4px dashed #ffb7ce; /* Borda inicial tracejada rosa */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* EFEITO AO PASSAR O MOUSE NO WRAPPER */
+.category-wrapper:hover {
+  /* O Wrapper cresce e gira */
+  transform: translateY(-6px) scale(1.2) rotate(var(--rotation)); 
+  border-style: solid; /* Fica sólida */
+  border-color: #77d3e7; /* Fica azul */
+  box-shadow: 0 15px 35px rgba(119, 211, 231, 0.3);
+  z-index: 100;
+}
+
+/* --- ESTILO DO CARD (O CONTEÚDO COLORIDO) --- */
+.category-card {
+  width: 90%;
+  height: 90%;
+  background-color: var(--toy-bg);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 15px;
+  box-shadow: inset 0 4px 6px rgba(0, 98, 255, 0.05);
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+}
+
+/* Quando o wrapper estiver no hover, podemos mudar a cor do card interno se quiser */
+.category-wrapper:hover .category-card {
+  background-color: #fff9e6; /* Dá um leve brilho no fundo do card */
+}
+
+.category-name {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: var(--toy-peach); /* Mudei para uma cor escura para ler melhor no amarelo */
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: white 1px 1px 2px; /* Sombra branca para destacar o texto no fundo amarelo */
+}
+
+.category-description {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  color: #666;
+  font-size: 0.7rem;
+  text-align: center;
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+/* REVELA A DESCRIÇÃO QUANDO O WRAPPER SOFRER HOVER */
+.category-wrapper:hover .category-description {
+  max-height: 80px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+/* CLICK FEEDBACK */
+.category-wrapper:active {
+  transform: scale(0.95);
+}

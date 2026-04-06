@@ -1,0 +1,197 @@
+/* Seção */
+.featured-toys {
+  padding: 3rem 5%;
+  background: var(--white);
+}
+
+/* Cabeçalho */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title-wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Quicksand', 'Poppins', sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--toy-peach);
+}
+
+.view-all {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--dusk-blue);
+  cursor: pointer;
+}
+
+/* Grid */
+.toys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  overflow: visible;
+}
+
+/* Card */
+
+.toy-card {
+  transition: 
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s ease;
+  cursor: pointer;
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  display: block; /* MUDA de flex para block */
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  overflow: visible; /* MUDA de hidden para visible */
+  width: 100%; /* Garante largura total */
+}
+
+
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+
+.toy-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Imagem */
+.toy-image {
+  height: 220px;
+  background-color: var(--toy-peach);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.toy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+
+.toy-card:hover .toy-image img {
+  transform: scale(1.08);
+}
+
+
+.toy-card:hover .toy-title {
+  color: var(--dusk-blue);
+}
+
+
+.toy-emoji {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+/* Texto */
+.toy-info {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.toy-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--dusk-blue);
+  margin-bottom: 0.3rem;
+}
+
+.toy-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--toy-peach);
+}
+
+.toy-category,
+.toy-stock {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+
+.toy-details-sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background: linear-gradient(135deg, #F8BBD0, #F48FB1); /* ROSA BEBÊ */
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  animation: slideIn 0.3s ease;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.toy-details-sidebar h4 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border-bottom: 2px solid white;
+  padding-bottom: 8px;
+}
+
+.toy-details-sidebar p {
+  margin: 10px 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.btn-buy {
+  margin-top: 15px;
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Ajuste para o card quando sidebar aparece */
+.toy-card:has(.toy-details-sidebar) {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}

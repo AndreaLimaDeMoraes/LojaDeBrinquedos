@@ -1,0 +1,36 @@
+.shortcuts {
+  padding: 4rem 5%;
+  background: var(--papaya-whip);
+}
+
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.shortcut-card {
+  background: white;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.shortcut-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.shortcut-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.shortcut-card span {
+  display: block;
+  font-weight: 500;
+  color: var(--dusk-blue);
+}

@@ -1,0 +1,104 @@
+.team {
+  padding: 4rem 5%;
+  background: var(--papaya-whip);
+}
+
+/* 🔥 BANNER SUPERIOR */
+.team-banner {
+  background: #eaf6f6; /* pode trocar por var(--toy-bg) se tiver */
+  border-radius: 40px;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+/* TEXTO DO BANNER */
+.team-banner-text {
+  max-width: 500px;
+}
+
+.team-banner-text h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--toy-blue);
+  margin-bottom: 1rem;
+}
+
+.team-banner-text p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* ILUSTRAÇÃO (lado direito) */
+.team-banner-image {
+  font-size: 6rem;
+}
+
+/* 🔥 GRID (parte de baixo igual imagem) */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+/* CARDS */
+.team-card {
+  background: transparent;
+  padding: 1rem;
+}
+
+/* ÍCONES */
+.team-image {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--toy-peach);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+}
+
+/* ESCONDE IMAGEM ANTIGA */
+.team-image img {
+  display: none;
+}
+
+/* TÍTULO */
+.team-card h3 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--dusk-blue);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+/* TEXTO */
+.team-card p {
+  font-size: 0.85rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .team-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .team-banner-image {
+    font-size: 4rem;
+  }
+  
+  
+  
+  
+}
