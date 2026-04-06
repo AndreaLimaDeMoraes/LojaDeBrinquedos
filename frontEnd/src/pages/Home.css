@@ -74,6 +74,7 @@ body, button, input, select, textarea {
 .home-nav span {
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
+  
 }
 
 .home-nav span:hover {
@@ -83,7 +84,8 @@ body, button, input, select, textarea {
 
 .home-actions {
   display: flex;
-  gap: 15px;
+  gap: 12px;  /* Diminui espaçamento */
+  align-items: center;
 }
 
 .home-divider {
@@ -121,7 +123,7 @@ section-heading {
     font-family: 'Quicksand', 'Poppins', sans-serif;
     font-size: 2rem;
     font-weight: 600;
-    color: var(--toy-peach); /* mesma identidade visual */
+    color: #555; /* mesma identidade visual */
     text-align: center;
     margin-bottom: 10px;
 }
@@ -144,11 +146,11 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;              /* 👈 espaçamento  entre os links */
+  gap: 16px;              /* 👈 espaçamento  entre os links */
 }
 
 .header-nav span {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #555;
   cursor: pointer;
@@ -156,6 +158,8 @@ section {
   padding: 4px 6px;      /* 👈 área de clique confortável */
   transition: color 0.2s ease;
 }
+
+
 
 .header-nav span:hover {
   color: #000;
@@ -170,9 +174,9 @@ section {
   border: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
-
+	
   padding: 4px 6px;
-  font-size: 0.95rem;
+  font-size: 0.7rem !important;  /* Diminui a fonte */
   font-weight: 500;
   color: #555;
 
@@ -191,33 +195,40 @@ gap: 32px;          /* distância ENTRE Equipe, Admin e Sair */
   
 }
 
-* Garante que o fundo vermelho apareça */
+/* Botão Sair - fundo vermelho, bordas arredondadas, sem desaparecer */
 .home-header .home-actions .btn-del {
   background-color: #e74c3c !important;
   color: #ffffff !important;
-
-  width: auto;                 /* 🔴 deixa o texto respirar */
-  min-width: 44px;
+  width: auto !important;
+  min-width: 60px;
   height: 36px;
-
-  padding: 0;            /* 🔴 espaço lateral para “SAIR” */
-  border-radius: 999px;        /* círculo/pílula */
-
+  padding: 0 16px !important;
+  border-radius: 999px !important;  /* Bordas arredondadas */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: 0.75rem !important;
+  font-weight: 600;
   text-transform: uppercase;
-
-  opacity: 1 !important;       /* 🔴 evita “sumir” */
-  line-height: 1;
+  opacity: 1 !important;  /* SEM efeito de desaparecer */
+  transition: background-color 0.2s ease !important;
 }
 
-/* Hover visível */
+/* Hover - muda só a cor, não some */
 .home-header .home-actions .btn-del:hover {
   background-color: #c0392b !important;
   opacity: 1 !important;
+}
+
+/* Efeito de linha rosa no clique - para o header-nav */
+.header-nav span:active {
+  border-bottom: 3px solid #F48FB1;
+  transform: translateY(2px);
+  transition: all 0.1s ease;
+}
+
+/* Efeito ao passar o mouse */
+.header-nav span:hover {
+  color: var(--toy-peach);
 }
 

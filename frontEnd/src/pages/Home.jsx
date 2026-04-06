@@ -33,6 +33,7 @@ const Home = () => {
   // opcional (para modal)
   // eslint-disable-next-line no-unused-vars
   const [produtoModal, setprodutoModal] = useState(null);
+  
 
 
   useEffect(() => {
@@ -137,7 +138,7 @@ const Home = () => {
           <button 
             onClick={() => navigate('/sobre')} 
             className="btn-action" 
-            style={{ backgroundColor: 'var(--toy-pink)', color: 'var(--toy-peach)' }}
+            style={{ backgroundColor: '#888; ', color: '#888;' }}
           >
             Sobre a Equipe
           </button>

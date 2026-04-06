@@ -53,7 +53,6 @@ const DiscountedToys = ({ toys = [] }) => {
                 <p><strong>Idade:</strong> {toy.idadeRecomendada || 'Livre'}</p>
                 <p><strong>Estoque:</strong> {toy.quantidadeEstoque ?? 0} un.</p>
                 <p><strong>Descrição:</strong> {toy.descricao || 'Sem descrição'}</p>
-                <button className="btn-buy">Comprar Agora</button>
               </div>
             )}
 
@@ -65,18 +64,18 @@ const DiscountedToys = ({ toys = [] }) => {
 			    <span className="original-price">
 			      R$ {Number(toy.valor).toFixed(2)}
 			    </span>
-                {' '}→{' '}
+                {' '}{' '}
 				<span className="discounted-price">
 				    R$ {(toy.valor - (toy.valor * toy.desconto / 100)).toFixed(2)}
 				  </span>
 				</div>
 
               <div className="toy-category">
-                📁 {toy.categoria?.nome || 'Sem categoria'}
+                 {toy.categoria?.nome || 'Sem categoria'}
               </div>
 
               <div className="toy-stock">
-                📦 Estoque: {toy.quantidadeEstoque ?? 0} un.
+                 Estoque: {toy.quantidadeEstoque ?? 0} un.
               </div>
             </div>
           </div>

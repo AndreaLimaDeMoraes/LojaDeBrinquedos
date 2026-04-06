@@ -36,7 +36,7 @@
 .toys-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.5rem;
+  gap:50px;
   overflow: visible;
 }
 
@@ -48,6 +48,7 @@
     box-shadow 0.35s ease;
   cursor: pointer;
   animation: fadeUp 0.5s ease both;
+  animation: flutuar 3s ease-in-out infinite;
   position: relative;
   display: block; /* MUDA de flex para block */
   background: white;
@@ -142,8 +143,9 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 280px;
-  height: 100%;
+  width: auto; 
+  height: 420%;
+  max-height: 90%;
   background: linear-gradient(135deg, #F8BBD0, #F48FB1); /* ROSA BEBÊ */
   color: white;
   padding: 20px;
@@ -195,3 +197,48 @@
   transform: scale(1.02);
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
+
+/* DiscountedToys.css - Só estiliza os preços */
+
+/* Container do preço */
+.toy-price {
+  display: flex;
+  flex-direction: column;  /* MUDA de row para column */
+  align-items: center;
+  justify-content: center;
+  gap: 5px;  /* Diminui um pouco o gap */
+  margin: 10px 0;
+  padding: 8px 15px;  /* Aumenta um pouco o padding vertical */
+  background: linear-gradient(135deg, #fafafa, #f5f5f5);
+  border-radius: 40px;
+}
+
+/* Preço original - delicado (vai para cima) */
+.toy-price .original-price {
+  font-size: 0.7rem;  /* Um pouco menor */
+  color: #aaa;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #e74c3c;
+  font-weight: 400;
+}
+
+/* Preço com desconto - elegante (vai para baixo) */
+.toy-price .discounted-price {
+  font-size: 1.3rem;  /* Um pouco maior que antes */
+  font-weight: 700;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #FFD54F, #FFC107);
+  padding: 4px 16px;  /* Um pouco mais espaçoso */
+  border-radius: 30px;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* Efeito no preço ao passar mouse no card */
+.toy-card:hover .discounted-price {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+}
+
