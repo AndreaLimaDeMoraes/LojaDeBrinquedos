@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import api from "../services/api";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   const [username,setUsername] = useState("")
   const [senha,setSenha] = useState("")
@@ -33,6 +36,15 @@ const Login = () => {
   {/* HEADER */}
   <header className="home-header">
     <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
+
+    <button 
+              type="button"
+              className="btn-voltar"
+              onClick={() => navigate("/")}
+              >
+              Voltar para Home
+    </button>
+
   </header>
 
   <div className="login-center">

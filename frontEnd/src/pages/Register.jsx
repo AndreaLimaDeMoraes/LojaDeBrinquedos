@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import api from "../services/api";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+
+  const navigate = useNavigate();
 
   const [username,setUsername] = useState("")
   const [senha,setSenha] = useState("")
@@ -40,6 +43,14 @@ const Register = () => {
       {/* HEADER */}
       <header className="home-header">
         <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
+
+        <button 
+              type="button"
+              className="btn-voltar"
+              onClick={() => navigate("/admin")}
+              >
+              Voltar para Administração
+        </button>
       </header>
 
       <div className="login-center">

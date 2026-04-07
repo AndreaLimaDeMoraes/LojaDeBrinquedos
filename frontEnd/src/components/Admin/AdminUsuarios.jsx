@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import "./Admin.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminUsuarios = () => {
+  const navigate = useNavigate();
   const [usuarios, setUsuarios] = useState([]);
   const [busca, setBusca] = useState("");
   const [carregando, setCarregando] = useState(true);
@@ -56,6 +58,13 @@ const AdminUsuarios = () => {
           value={busca} 
           onChange={e => setBusca(e.target.value)} 
         />
+
+        <button 
+        className="btn-action btn-add"
+        onClick={() => navigate("/register")}
+        >
+        Registrar Novo Usuário
+        </button>
       </div>
 
       {carregando ? (

@@ -163,3 +163,18 @@
 .login-card-form button:hover{
   background:#4aa7bb;
 }
+
+.btn-voltar{
+  background:#5ec0d4;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:20px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.btn-voltar:hover{
+  background:#4aa7bb;
+}
