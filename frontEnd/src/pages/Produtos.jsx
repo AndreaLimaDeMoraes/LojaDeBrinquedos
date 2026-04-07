@@ -11,7 +11,7 @@ const Produtos = () => {
   const navigate = useNavigate();
   const isAuthenticated = !!localStorage.getItem('token');
   const [searchParams, setSearchParams] = useSearchParams();
-  
+  const [apenasPromocoes, setApenasPromocoes] = useState(false); // Novo filtro
   const categoriaInicial = searchParams.get('categoria') || '';
   const marcaInicial = searchParams.get('marca') || '';
 
@@ -24,12 +24,39 @@ const Produtos = () => {
 
   const handleFiltroCategoria = (id) => {
     setFiltroCategoria(id);
-    setSearchParams({ categoria: id, marca: filtroMarca });
+    // Ao filtrar, passamos apenas os filtros, ignorando o 'id' do produto
+    setSearchParams({ 
+      categoria: id, 
+      marca: filtroMarca,
+      promo: apenasPromocoes ? 'true' : 'false' 
+    });
   };
 
   const handleFiltroMarca = (id) => {
     setFiltroMarca(id);
-    setSearchParams({ categoria: filtroCategoria, marca: id });
+    setSearchParams({ 
+      categoria: filtroCategoria, 
+      marca: id,
+      promo: apenasPromocoes ? 'true' : 'false'
+    });
+  };
+
+  // Crie uma função para o Checkbox também para ele atualizar a URL
+  const handleCheckPromo = (checked) => {
+    setApenasPromocoes(checked);
+    setSearchParams({
+      categoria: filtroCategoria,
+      marca: filtroMarca,
+      promo: checked ? 'true' : 'false'
+    });
+  };
+
+  const fecharModal = () => {
+    setBrinquedoSelecionado(null);
+    // Remove apenas o 'id' da URL, mantendo categoria e marca se existirem
+    const novosParams = new URLSearchParams(searchParams);
+    novosParams.delete('id');
+    setSearchParams(novosParams);
   };
 
   useEffect(() => {
@@ -41,18 +68,42 @@ const Produtos = () => {
     api.get('/brinquedos')
       .then(res => {
         let dados = res.data;
+
+        // 1. Filtros de Categoria e Marca
         if (filtroCategoria) {
           dados = dados.filter(p => p.categoria?.id?.toString() === filtroCategoria.toString());
         }
         if (filtroMarca) {
           dados = dados.filter(p => p.marca?.id?.toString() === filtroMarca.toString());
         }
+
+        // 2. Filtro de Promoções (Checkbox)
+        if (apenasPromocoes) {
+          dados = dados.filter(p => Number(p.desconto) > 0);
+        }
+
+        // 3. Ordenação Inteligente (Destaque + Desconto)
+        dados.sort((a, b) => {
+          if (Number(b.destacar) !== Number(a.destacar)) {
+            return Number(b.destacar) - Number(a.destacar);
+          }
+          return (Number(b.desconto) || 0) - (Number(a.desconto) || 0);
+        });
+
         setProdutos(dados);
       })
-      .catch(err => {
-        console.error("Erro ao buscar brinquedos:", err);
-      });
-  }, [filtroCategoria, filtroMarca]);
+      .catch(err => console.error("Erro ao buscar:", err));
+  }, [filtroCategoria, filtroMarca, apenasPromocoes]); // Adicionado apenasPromocoes aqui
+
+  useEffect(() => {
+    const productId = searchParams.get('id');
+    if (productId && produtos.length > 0) {
+      const encontrado = produtos.find(p => p.id.toString() === productId);
+      if (encontrado) {
+        setBrinquedoSelecionado(encontrado);
+      }
+    }
+  }, [searchParams, produtos]);
 
   return (
     <div className="produtos-page">
@@ -96,15 +147,23 @@ const Produtos = () => {
       </header>
 
       {/* CONTEÚDO ORIGINAL */}
-      <div className="produtos-header">
-        <h1>Nossa Vitrine Mágica 🎁</h1>
-        <p>Encontre os melhores brinquedos em EVA!</p>
-      </div>
-
+      
       <div className="produtos-layout">
         <aside className="filtros-sidebar">
           <h3>Filtros</h3>
           
+          <div className="filtro-grupo checkbox-promo">
+            <label className="checkbox-container">
+              <input 
+                type="checkbox" 
+                checked={apenasPromocoes} 
+                onChange={(e) => handleCheckPromo(e.target.checked)} 
+              />
+              <span className="checkmark"></span>
+              <p1>Apenas Promoções</p1>
+            </label>
+          </div>
+
           <div className="filtro-grupo">
             <label>Categoria</label>
             <select 
@@ -133,8 +192,12 @@ const Produtos = () => {
           
           <button 
             className="btn-limpar"
-            onClick={() => { setFiltroCategoria(''); setFiltroMarca(''); }}
-          >
+            onClick={() => { 
+              setFiltroCategoria(''); 
+              setFiltroMarca(''); 
+              setSearchParams({}); // Isso limpa a URL!
+            }}
+            >
             Limpar Filtros
           </button>
         </aside>
@@ -145,31 +208,45 @@ const Produtos = () => {
               <h2>Poxa, nenhum brinquedo encontrado! 😢</h2>
             </div>
           ) : (
-            produtos.map(produto => (
-              <div className="produto-card" key={produto.id} onClick={() => setBrinquedoSelecionado(produto)}>
-                <div className="produto-img-wrapper">
-                  {produto.imagens && produto.imagens[0] ? (
-                    <img src={produto.imagens[0]} alt={produto.nomeBrinquedo} className="produto-img" />
-                  ) : (
-                    <div className="produto-placeholder">🧸</div>
-                  )}
+            produtos.map(produto => {
+              const temDesconto = Number(produto.desconto) > 0;
+              const valorOriginal = Number(produto.valor);
+              const valorFinal = temDesconto ? valorOriginal - (valorOriginal * (produto.desconto / 100)) : valorOriginal;
+
+              return (
+                <div className="produto-card" key={produto.id} onClick={() => setBrinquedoSelecionado(produto)}>
+                  <div className="produto-img-wrapper">
+                    {temDesconto && <div className="tag-desconto">-{produto.desconto}%</div>}
+                    {produto.imagens && produto.imagens[0] ? (
+                      <img src={produto.imagens[0]} alt={produto.nomeBrinquedo} className="produto-img" />
+                    ) : (
+                      <div className="produto-placeholder">🧸</div>
+                    )}
+                  </div>
+                  <div className="produto-info">
+                    <h4>{produto.nomeBrinquedo}</h4>
+                    <div className="produto-preco-container">
+                      {temDesconto ? (
+                        <>
+                          <span className="preco-antigo">R$ {valorOriginal.toFixed(2)}</span>
+                          <span className="produto-preco">R$ {valorFinal.toFixed(2)}</span>
+                        </>
+                      ) : (
+                        <span className="produto-preco">R$ {valorOriginal.toFixed(2)}</span>
+                      )}
+                    </div>
+                    <button className="btn-comprar">Ver Detalhes</button>
+                  </div>
                 </div>
-                <div className="produto-info">
-                  <h4>{produto.nomeBrinquedo}</h4>
-                  <span className="produto-preco">
-                    R$ {produto.valor ? produto.valor.toFixed(2) : "0.00"}
-                  </span>
-                  <button className="btn-comprar">Ver Detalhes</button>
-                </div>
-              </div>
-            ))
+              )
+            })
           )}
         </main>
 
         {brinquedoSelecionado && (
           <ProductModal 
             produto={brinquedoSelecionado} 
-            onClose={() => setBrinquedoSelecionado(null)} 
+            onClose={fecharModal} // <--- Usando a função nova aqui
           />
         )}
       </div>

@@ -1,244 +1,180 @@
-/* Seção */
 .featured-toys {
-  padding: 3rem 5%;
-  background: var(--white);
+  padding: 60px 5%;
+  background-color: white;
+  font-family: 'Quicksand', sans-serif;
 }
 
-/* Cabeçalho */
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.section-title-wrapper {
-  flex: 1;
-  text-align: center;
+  margin-bottom: 40px;
 }
 
 .section-title {
-  font-family: 'Quicksand', 'Poppins', sans-serif;
-  font-size: 3rem;
-  font-weight: 600;
-  color: var(--toy-peach);
+  color: var(--toy-peach, #fd9272);
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .view-all {
   background: none;
-  border: none;
-  font-size: 0.9rem;
-  color: var(--dusk-blue);
+  border: 2px solid var(--toy-blue, #77d3e7);
+  color: var(--toy-blue, #77d3e7);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 700;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Grid */
+.view-all:hover {
+  background: var(--toy-blue, #77d3e7);
+  color: white;
+}
+
 .toys-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap:50px;
-  overflow: visible;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
 }
 
-/* Card */
-
-.toy-card {
-  transition: 
-    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    box-shadow 0.35s ease;
-  cursor: pointer;
-  animation: fadeUp 0.5s ease both;
-  animation: flutuar 3s ease-in-out infinite;
-  position: relative;
-  display: block; /* MUDA de flex para block */
+/* REAPROVEITANDO O ESTILO DA VITRINE */
+.produto-card {
   background: white;
-  border-radius: 15px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  overflow: visible; /* MUDA de hidden para visible */
-  width: 100%; /* Garante largura total */
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.04);
+  border: 4px dashed transparent;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.produto-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--toy-blue, #77d3e7);
+  border-style: solid;
+  box-shadow: 0 15px 30px rgba(119, 211, 231, 0.2);
 }
 
-
-
-.toy-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
-}
-
-
-/* Imagem */
-.toy-image {
-  height: 220px;
-  background-color: var(--toy-peach);
+.produto-img-wrapper {
+  background-color: var(--toy-bg, #fcf3c3);
+  border-radius: 18px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15px;
 }
 
-
-.toy-image img {
+.produto-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-
-.toy-card:hover .toy-image img {
-  transform: scale(1.08);
-}
-
-
-.toy-card:hover .toy-title {
-  color: var(--dusk-blue);
-}
-
-
-.toy-emoji {
-  font-size: 3rem;
-  opacity: 0.4;
-}
-
-/* Texto */
-.toy-info {
-  padding: 0.8rem;
-  text-align: center;
-}
-
-.toy-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--dusk-blue);
-  margin-bottom: 0.3rem;
-}
-
-.toy-price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--toy-peach);
-}
-
-.toy-category,
-.toy-stock {
-  font-size: 0.8rem;
-  color: #777;
-}
-
-
-.toy-details-sidebar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto; 
-  height: 420%;
-  max-height: 90%;
-  background: linear-gradient(135deg, #F8BBD0, #F48FB1); /* ROSA BEBÊ */
-  color: white;
-  padding: 20px;
+  object-fit: contain;
   border-radius: 15px;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
-  animation: slideIn 0.3s ease;
-  overflow-y: auto;
-  z-index: 10;
 }
 
-.toy-details-sidebar h4 {
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  border-bottom: 2px solid white;
-  padding-bottom: 8px;
-}
-
-.toy-details-sidebar p {
-  margin: 10px 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.btn-buy {
-  margin-top: 15px;
-  background: white;
-  color: #667eea;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Ajuste para o card quando sidebar aparece */
-.toy-card:has(.toy-details-sidebar) {
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-/* DiscountedToys.css - Só estiliza os preços */
-
-/* Container do preço */
-.toy-price {
+.produto-info {
+  text-align: center;
   display: flex;
-  flex-direction: column;  /* MUDA de row para column */
+  flex-direction: column;
+  flex: 1;
+}
+
+.produto-info h4 {
+  color: #4a4a4a;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  flex: 1;
+}
+
+.produto-preco {
+  color: var(--toy-peach, #fd9272);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.btn-comprar {
+  background-color: var(--toy-blue, #77d3e7);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* ... Mantenha seus estilos anteriores e adicione/ajuste esses abaixo ... */
+
+.produto-img-wrapper {
+  position: relative; /* Necessário para a tag de desconto não fugir */
+  background-color: var(--toy-bg, #fcf3c3);
+  border-radius: 18px;
+  height: 180px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;  /* Diminui um pouco o gap */
-  margin: 10px 0;
-  padding: 8px 15px;  /* Aumenta um pouco o padding vertical */
-  background: linear-gradient(135deg, #fafafa, #f5f5f5);
-  border-radius: 40px;
+  margin-bottom: 15px;
+  overflow: hidden; /* Garante que nada saia do arredondado */
 }
 
-/* Preço original - delicado (vai para cima) */
-.toy-price .original-price {
-  font-size: 0.7rem;  /* Um pouco menor */
-  color: #aaa;
+/* Estilo da Tag de Desconto */
+.tag-desconto {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d; /* Vermelho vibrante para oferta */
+  color: white;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Container de preços para alinhar o antigo e o novo */
+.produto-preco-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  min-height: 50px; /* Mantém o alinhamento mesmo sem desconto */
+  justify-content: center;
+}
+
+.preco-antigo {
+  color: #bbb;
   text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: #e74c3c;
-  font-weight: 400;
+  font-size: 0.85rem;
+  margin-bottom: -2px;
 }
 
-/* Preço com desconto - elegante (vai para baixo) */
-.toy-price .discounted-price {
-  font-size: 1.3rem;  /* Um pouco maior que antes */
-  font-weight: 700;
-  color: #2c3e50;
-  background: linear-gradient(135deg, #FFD54F, #FFC107);
-  padding: 4px 16px;  /* Um pouco mais espaçoso */
-  border-radius: 30px;
-  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+.produto-preco {
+  color: var(--toy-peach, #fd9272);
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
-/* Efeito no preço ao passar mouse no card */
-.toy-card:hover .discounted-price {
-  transform: scale(1.03);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+/* Ajuste no título para não quebrar o layout se for muito longo */
+.produto-info h4 {
+  color: #4a4a4a;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.6rem; /* Garante altura fixa para os botões ficarem alinhados */
 }
-

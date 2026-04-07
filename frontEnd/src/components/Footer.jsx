@@ -2,18 +2,16 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer style={{ 
-      background: '#2C2C1F', 
-      color: 'white', 
-      paddingTop: '3rem',
-      marginTop: '2rem'
-    }}>
+    <footer>
+      
       <div style={{
+        borderTop: '3px dashed var(--toy-blue)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         maxWidth: '1200px',
         margin: '0 auto',
+        paddingTop : '50px',
         padding: '0 5% 3rem',
         gap: '2rem',
         flexWrap: 'wrap'
@@ -26,9 +24,9 @@ const Footer = () => {
 		
 		<div style={{ flex: 1, textAlign: 'right' }}>
 		  <h4>Institucional</h4>
-		  <a href="#team-section" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
-		  <a href="/sobre" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
-		  <a href="#fale-conosco" style={{ display: 'block', color: 'white', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
+		  <a href="#team-section" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
+		  <a href="/sobre" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
+		  <a href="#fale-conosco" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
 		</div>
 		
       </div>

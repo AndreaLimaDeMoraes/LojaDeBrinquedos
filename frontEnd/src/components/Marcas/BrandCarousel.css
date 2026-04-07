@@ -7,8 +7,8 @@
 
 .brands-subtitle {
   font-family: 'Quicksand', sans-serif;
-  color: #999;
-  font-size: 0.9rem;
+  color: var(--toy-blue);
+  font-size: 2rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   margin-bottom: 40px;
@@ -28,6 +28,7 @@
   width: max-content;
   gap: 100px;
   animation: scroll-brands 40s linear infinite; /* Bem lento e elegante */
+  padding: 20px 0;
 }
 
 .brand-item {
@@ -60,4 +61,53 @@
 
 .brands-container:hover .brands-track {
   animation-play-state: paused;
+}
+
+/* ... seus estilos anteriores ... */
+
+.brand-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.brand-logo-img {
+  height: 60px; /* Ajuste a altura conforme o gosto */
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  /* Efeito elegante: começa cinza e fica colorido no hover */
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.brand-name-under {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0; /* Escondido por padrão */
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER EFFECTS */
+.brand-item:hover .brand-logo-img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.brand-item:hover .brand-name-under {
+  opacity: 1;
+  color: var(--toy-peach);
+}
+
+.brand-item:hover .brand-wrapper {
+  transform: translateY(-5px);
 }

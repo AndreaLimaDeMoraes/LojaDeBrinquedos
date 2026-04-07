@@ -227,9 +227,6 @@ const Home = () => {
 	      <section id="marcas">
 	        <BrandCarousel />
 			
-			<hr className="home-divider" />
-					  {/* Promoções com desconto */}
-					      <DiscountedToys toys={brinquedos} />
 			
 			<hr className="home-divider" />
 			{/* Seção sobre a Loja */}
