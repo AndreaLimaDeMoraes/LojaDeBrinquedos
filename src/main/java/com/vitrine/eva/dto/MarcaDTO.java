@@ -4,14 +4,14 @@ public class MarcaDTO {
 
     private Long id;
     private String nome;
-    private String descricao;
+    private String logoUrl;
 
     public MarcaDTO() {}
 
-    public MarcaDTO(Long id, String nome, String descricao) {
+    public MarcaDTO(Long id, String nome, String logoUrl) {
         this.id = id;
         this.nome = nome;
-        this.descricao = descricao;
+        this.logoUrl = logoUrl;
     }
 
     public Long getId() {
@@ -30,11 +30,11 @@ public class MarcaDTO {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }

@@ -1,18 +1,18 @@
 /* ==========================================================================
    ESTILO GLOBAL E FONTES
    ========================================================================== */
+:root {
+  --toy-peach: #fd9272;
+  --toy-blue: #77d3e7;
+  --toy-mint: #d4edda;
+  --toy-pink: #ffd7e3;
+  --toy-bg: #fcf3c3;
+  --toy-shadow: rgba(255, 183, 161, 0.12);
+}
+
 body, button, input, select, textarea {
   font-family: 'Quicksand', sans-serif !important;
   color: #5a5a5a;
-}
-
-:root {
-  --toy-peach: #fd9272;     /* Pêssego Fox Kids */
-  --toy-blue: #77d3e7;      /* Azul céu */
-  --toy-mint: #d4edda;      /* Menta suave */
-  --toy-pink: #ffd7e3;      /* Rosa bebê */
-  --toy-bg: #fcf3c3;        /* Fundo amarelinho */
-  --toy-shadow: rgba(255, 183, 161, 0.12);
 }
 
 /* ==========================================================================
@@ -24,14 +24,13 @@ body, button, input, select, textarea {
   background-color: var(--toy-bg);
 }
 
-/* Sidebar */
 .sidebar {
   width: 260px;
   background-color: white;
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Empurra o conteúdo para cima e o botão voltar para baixo */
+  justify-content: space-between;
   gap: 15px;
   box-shadow: 8px 0 20px rgba(0,0,0,0.02);
   z-index: 10;
@@ -65,7 +64,6 @@ body, button, input, select, textarea {
   border-color: var(--toy-peach);
 }
 
-/* NOVO: Botão de Voltar na Sidebar */
 .sidebar-back-button {
   display: flex;
   align-items: center;
@@ -79,7 +77,7 @@ body, button, input, select, textarea {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: auto; /* Garante o posicionamento no rodapé da sidebar */
+  margin-top: auto;
 }
 
 .sidebar-back-button:hover {
@@ -90,7 +88,6 @@ body, button, input, select, textarea {
   box-shadow: 0 5px 15px rgba(119, 211, 231, 0.3);
 }
 
-/* Painel de Conteúdo */
 .main-content {
   flex: 1;
   padding: 50px;
@@ -122,26 +119,17 @@ body, button, input, select, textarea {
   width: 100%; 
 }
 
-.search-bar {
-  flex: 1; 
+.search-bar, .filter-select {
   border: 2px solid #f0f0f0;
   padding: 12px 25px;
   border-radius: 25px;
   outline: none;
   background-color: #fafafa;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 
-.filter-select {
-  width: 150px;
-  border: 2px solid #f0f0f0;
-  padding: 12px 15px;
-  border-radius: 25px;
-  outline: none;
-  background-color: #fafafa;
-  cursor: pointer;
-}
+.search-bar { flex: 1; font-size: 1rem; }
+.filter-select { width: 150px; cursor: pointer; padding: 12px 15px; }
 
 .search-bar:focus, .filter-select:focus {
   border-color: var(--toy-blue);
@@ -177,7 +165,7 @@ body, button, input, select, textarea {
 }
 
 /* ==========================================================================
-   USUÁRIOS (AVATAR E TAGS)
+   USUÁRIOS
    ========================================================================== */
 .user-info {
   display: flex;
@@ -210,10 +198,7 @@ body, button, input, select, textarea {
   display: inline-block;
 }
 
-.role-tag.admin {
-  background-color: #f1c40f;
-  color: #000;
-}
+.role-tag.admin { background-color: #f1c40f; color: #000; }
 
 /* ==========================================================================
    BOTÕES E AÇÕES
@@ -252,9 +237,7 @@ body, button, input, select, textarea {
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.btn-action:active {
-  transform: translateY(0);
-}
+.btn-action:active { transform: translateY(0); }
 
 /* ==========================================================================
    FORMULÁRIOS
@@ -295,22 +278,60 @@ body, button, input, select, textarea {
   box-shadow: 0 0 15px rgba(119, 211, 231, 0.1);
 }
 
+/* ==========================================================================
+   PREVIEW DE IMAGENS
+   ========================================================================== */
+.image-preview-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.image-card {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid var(--toy-pink);
+  transition: transform 0.2s;
+}
+
+.image-card:hover { transform: scale(1.05); }
+.image-card img { width: 100%; height: 100%; object-fit: cover; }
+
+.image-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(253, 146, 114, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.image-card:hover .image-overlay { opacity: 1; }
+.trash-icon { font-size: 1.2rem; margin-top: 5px; }
+
+/* ==========================================================================
+   EXTRAS
+   ========================================================================== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #d0d0d0;
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #d0d0d0; }
+
+.btn-remove-img { display: none; }

@@ -43,9 +43,6 @@ public class Brinquedo {
   @Column(name = "valor", nullable = false)
   private BigDecimal valor;
 
-  @Column(name = "fornecedor")
-  private String fornecedor;
-
   // @Column(name = "logs_edicao_criacao")
   // private String logsEdicaoCriacao; // >>>>>>>>>>> Implementar ser sobrar tempo ...
   
@@ -82,7 +79,7 @@ public class Brinquedo {
 	
 
 	public Brinquedo(Long id, String nomeBrinquedo, List<String> imagens, String descricao, BigDecimal valor,
-			String fornecedor, String idadeRecomendada, Integer quantidadeEstoque, Double desconto,
+			String idadeRecomendada, Integer quantidadeEstoque, Double desconto,
 			LocalDateTime dataCadastro, Categoria categoria, Marca marca, Boolean destacar, String dtCriacao) {
 		super();
 		this.id = id;
@@ -90,7 +87,6 @@ public class Brinquedo {
 		this.imagens = imagens;
 		this.descricao = descricao;
 		this.valor = valor;
-		this.fornecedor = fornecedor;
 		this.idadeRecomendada = idadeRecomendada;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.desconto = desconto;
@@ -160,15 +156,7 @@ public class Brinquedo {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
-    public String getFornecedor() {
-        return fornecedor;
-    }
-    
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-    
+        
     //public String getLogsEdicaoCriacao() {
      //   return logsEdicaoCriacao;
    // }

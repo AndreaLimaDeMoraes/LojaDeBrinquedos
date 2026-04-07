@@ -17,23 +17,19 @@ public class BrinquedoDTO {
     private Categoria categoria;
     private Marca marca;
 
-    private String fornecedor;
     private String idadeRecomendada;
     private Integer quantidadeEstoque;
     private Double desconto;
     private LocalDateTime dataCadastro;
 
-    //NOVOS CAMPOS: 05/04
     private Boolean destacar;
     private String dtCriacao;
 
-    // Construtor vazio
     public BrinquedoDTO() {}
 
-    // Construtor COMPLETO com os novos campos
     public BrinquedoDTO(Long id, String nomeBrinquedo, String descricao, BigDecimal valor, 
                         Categoria categoria, Marca marca, Integer quantidadeEstoque,
-                        Boolean destacar, String dtCriacao) {
+                        LocalDateTime dataCadastro, Boolean destacar, String dtCriacao) {
         this.id = id;
         this.nomeBrinquedo = nomeBrinquedo;
         this.descricao = descricao;
@@ -41,13 +37,10 @@ public class BrinquedoDTO {
         this.valor = valor;
         this.categoria = categoria;
         this.quantidadeEstoque = quantidadeEstoque;
-        
-        // NOVOS CAMPOS
+        this.dataCadastro = dataCadastro;
         this.destacar = destacar;
         this.dtCriacao = dtCriacao;
     }
-
-    // GETTERS E SETTERS
 
     public Long getId() {
         return id;
@@ -104,15 +97,7 @@ public class BrinquedoDTO {
     public void setMarca(Marca marca) {
         this.marca = marca;
     }
-
-    public String getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
+    
     public String getIdadeRecomendada() {
         return idadeRecomendada;
     }
@@ -145,7 +130,6 @@ public class BrinquedoDTO {
         this.dataCadastro = dataCadastro;
     }
 
-    // NOVOS CAMPOS 
     public Boolean getDestacar() {
         return destacar;
     }

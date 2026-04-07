@@ -14,8 +14,6 @@ const AdminUsuarios = () => {
   const carregarUsuarios = async () => {
     try {
       setCarregando(true);
-      // O seu controller exige @PreAuthorize("hasRole('ADMIN')")
-      // Certifique-se que o seu serviço de api.js anexa o Token JWT no header
       const response = await api.get('/usuarios');
       setUsuarios(response.data);
     } catch (err) {

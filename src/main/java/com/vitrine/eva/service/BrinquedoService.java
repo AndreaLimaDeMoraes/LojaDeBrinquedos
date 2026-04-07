@@ -19,7 +19,6 @@ public class BrinquedoService {
     @Autowired
     private BrinquedoRepository brinquedoRepository;
     
-    // Listar todos convertendo para DTO
     public List<BrinquedoDTO> listarTodos() {
         return brinquedoRepository.findAll().stream()
                 .map(this::toDTO)
@@ -39,7 +38,11 @@ public class BrinquedoService {
     @Transactional
     public BrinquedoDTO salvar(BrinquedoDTO dto) {
         Brinquedo brinquedo = toEntity(dto);
+        // Define a data de cadastro apenas na criação
         brinquedo.setDataCadastro(LocalDateTime.now());
+        // Garante que o destaque não seja nulo ao salvar
+        if (brinquedo.getDestacar() == null) brinquedo.setDestacar(false);
+        
         return toDTO(brinquedoRepository.save(brinquedo));
     }
 
@@ -50,14 +53,14 @@ public class BrinquedoService {
             brinquedo.setDescricao(dto.getDescricao());
             brinquedo.setValor(dto.getValor());
             brinquedo.setCategoria(dto.getCategoria());
-            brinquedo.setMarca(dto.getMarca()); // Adicionado marca
-            brinquedo.setFornecedor(dto.getFornecedor());
+            brinquedo.setMarca(dto.getMarca());
             brinquedo.setIdadeRecomendada(dto.getIdadeRecomendada());
             brinquedo.setQuantidadeEstoque(dto.getQuantidadeEstoque());
             brinquedo.setDesconto(dto.getDesconto());
             brinquedo.setImagens(dto.getImagens());
-            brinquedo.setDestacar(dto.getDestacar());
+            brinquedo.setDestacar(dto.getDestacar() != null ? dto.getDestacar() : false);
             brinquedo.setDtCriacao(dto.getDtCriacao());
+            
             return toDTO(brinquedoRepository.save(brinquedo));
         });
     }
@@ -71,7 +74,6 @@ public class BrinquedoService {
         return false;
     }
 
-    // Métodos Auxiliares de Conversão
     private BrinquedoDTO toDTO(Brinquedo b) {
         BrinquedoDTO dto = new BrinquedoDTO();
         dto.setId(b.getId());
@@ -81,12 +83,11 @@ public class BrinquedoService {
         dto.setValor(b.getValor());
         dto.setCategoria(b.getCategoria());
         dto.setMarca(b.getMarca());
-        dto.setFornecedor(b.getFornecedor());
         dto.setIdadeRecomendada(b.getIdadeRecomendada());
         dto.setQuantidadeEstoque(b.getQuantidadeEstoque());
         dto.setDesconto(b.getDesconto());
         dto.setDataCadastro(b.getDataCadastro());
-        dto.setDestacar(b.getDestacar());
+        dto.setDestacar(b.getDestacar() != null ? b.getDestacar() : false);
         dto.setDtCriacao(b.getDtCriacao());
         
         return dto;
@@ -101,11 +102,11 @@ public class BrinquedoService {
         b.setValor(dto.getValor());
         b.setCategoria(dto.getCategoria());
         b.setMarca(dto.getMarca());
-        b.setFornecedor(dto.getFornecedor());
         b.setIdadeRecomendada(dto.getIdadeRecomendada());
         b.setQuantidadeEstoque(dto.getQuantidadeEstoque());
         b.setDesconto(dto.getDesconto());
-        b.setDestacar(dto.getDestacar());
+        b.setDataCadastro(dto.getDataCadastro()); // Preserva a data vinda do DTO se houver
+        b.setDestacar(dto.getDestacar() != null ? dto.getDestacar() : false);
         b.setDtCriacao(dto.getDtCriacao());
         return b;
     }

@@ -18,12 +18,12 @@ const AdminBrinquedos = () => {
     descricao: '',
     valor: '',
     quantidadeEstoque: '',
-    fornecedor: '',
     idadeRecomendada: '',
     desconto: 0,
     imagens: [],
     categoria: { id: '' },
-    marca: { id: '' }
+    marca: { id: '' },
+    destacar: false 
   };
 
   const [brinquedoSelecionado, setBrinquedoSelecionado] = useState(estadoInicial);
@@ -104,12 +104,12 @@ const AdminBrinquedos = () => {
   const handleSalvar = async () => {
     const { 
       nomeBrinquedo, valor, quantidadeEstoque, categoria, 
-      marca, imagens, descricao, fornecedor, idadeRecomendada, desconto 
+      marca, imagens, descricao, idadeRecomendada, desconto 
     } = brinquedoSelecionado;
 
     if (!nomeBrinquedo || !valor || !quantidadeEstoque || !categoria.id || 
-        !marca.id || !descricao || !fornecedor || !idadeRecomendada) {
-      return alert("Todos os campos são obrigatórios (exceto Desconto).");
+        !marca.id || !descricao || !idadeRecomendada) {
+      return alert("Todos os campos marcados com * são obrigatórios.");
     }
 
     if (imagens.length === 0) {
@@ -157,6 +157,19 @@ const AdminBrinquedos = () => {
             onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, nomeBrinquedo: e.target.value})} />
         </div>
 
+        <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '15px', background: '#fff9f0', padding: '15px', borderRadius: '20px', border: '2px dashed var(--toy-peach)' }}>
+            <input 
+                type="checkbox" 
+                id="check-destaque"
+                style={{ width: '22px', height: '22px', cursor: 'pointer' }}
+                checked={brinquedoSelecionado.destacar}
+                onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, destacar: e.target.checked})}
+            />
+            <label htmlFor="check-destaque" style={{ margin: 0, cursor: 'pointer', color: 'var(--toy-peach)' }}>
+                <strong>Exibir este brinquedo na aba "Produtos em Destaque"</strong>
+            </label>
+        </div>
+
         <div style={{ display: 'flex', gap: '20px' }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label>Preço (R$) *</label>
@@ -194,27 +207,19 @@ const AdminBrinquedos = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <div className="form-group" style={{ flex: 1 }}>
-            <label>Fornecedor *</label>
-            <input type="text" className="toy-input" value={brinquedoSelecionado.fornecedor} 
-              onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, fornecedor: e.target.value})} />
-          </div>
-          <div className="form-group" style={{ flex: 1 }}>
-            <label>Idade Recomendada *</label>
-            <select className="toy-input" value={brinquedoSelecionado.idadeRecomendada} 
-              onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, idadeRecomendada: e.target.value})}>
-              <option value="">Selecione...</option>
-              {/* OPÇÕES ATUALIZADAS AQUI */}
-              <option value="Bebês: 0-12 meses">Bebês: 0-12 meses</option>
-              <option value="Bebês: 1-2 anos">Bebês: 1-2 anos</option>
-              <option value="Crianças: 3-5 anos">Crianças: 3-5 anos</option>
-              <option value="Crianças: 6-10 anos">Crianças: 6-10 anos</option>
-              <option value="Crianças: até 12 anos">Crianças: até 12 anos</option>
-              <option value="Adolescentes: 13-17 anos">Adolescentes: 13-17 anos</option>
-              <option value="Para todas as idades">Para todas as idades</option>
-            </select>
-          </div>
+        <div className="form-group">
+          <label>Idade Recomendada *</label>
+          <select className="toy-input" value={brinquedoSelecionado.idadeRecomendada} 
+            onChange={e => setBrinquedoSelecionado({...brinquedoSelecionado, idadeRecomendada: e.target.value})}>
+            <option value="">Selecione...</option>
+            <option value="Bebês: 0-12 meses">Bebês: 0-12 meses</option>
+            <option value="Bebês: 1-2 anos">Bebês: 1-2 anos</option>
+            <option value="Crianças: 3-5 anos">Crianças: 3-5 anos</option>
+            <option value="Crianças: 6-10 anos">Crianças: 6-10 anos</option>
+            <option value="Crianças: até 12 anos">Crianças: até 12 anos</option>
+            <option value="Adolescentes: 13-17 anos">Adolescentes: 13-17 anos</option>
+            <option value="Para todas as idades">Para todas as idades</option>
+          </select>
         </div>
 
         <div className="form-group">
@@ -224,18 +229,22 @@ const AdminBrinquedos = () => {
         </div>
 
         <div className="form-group">
-          <label>Fotos * (Selecione pelo menos uma)</label>
+          <label>Fotos * (Clique na foto para remover)</label>
           <div className="upload-container">
             <input type="file" accept="image/*" multiple onChange={handleMultipleUpload} id="file-input" style={{ display: 'none' }} />
             <label htmlFor="file-input" className="btn-action btn-add" style={{ color: 'white', cursor: 'pointer', display: 'inline-block' }}>
               {carregandoImagens ? "⌛ Subindo fotos..." : "📷 Adicionar Fotos"}
             </label>
           </div>
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '15px' }}>
+          
+          <div className="image-preview-grid">
             {brinquedoSelecionado.imagens.map((img, index) => (
-              <div key={index} style={{ position: 'relative' }}>
-                <img src={img} alt="Preview" style={{ width: '85px', height: '85px', borderRadius: '10px', objectFit: 'cover', border: '2px solid var(--toy-pink)' }} />
-                <button type="button" onClick={() => removerImagem(index)} className="btn-remove-img">x</button>
+              <div key={index} className="image-card" onClick={() => removerImagem(index)}>
+                <img src={img} alt="Preview" />
+                <div className="image-overlay">
+                  <span>Deletar</span>
+                  <div className="trash-icon">🗑️</div>
+                </div>
               </div>
             ))}
           </div>
@@ -283,7 +292,10 @@ const AdminBrinquedos = () => {
                 )}
 
                 <div>
-                  <strong>{brin.nomeBrinquedo}</strong>
+                  <strong style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {brin.nomeBrinquedo}
+                    {brin.destacar && <span title="Produto em Destaque" style={{ fontSize: '1rem' }}>⭐</span>}
+                  </strong>
                   <div style={{ fontSize: '0.8rem', color: '#888' }}>{brin.marca?.nome} | R$ {brin.valor?.toFixed(2)}</div>
                 </div>
               </div>

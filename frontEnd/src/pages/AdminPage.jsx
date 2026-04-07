@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importando para navegação
-import { FaHome } from 'react-icons/fa'; // Ícone de casinha
+import { useNavigate } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import "../components/Admin/Admin.css";
 import AdminCategorias from '../components/Admin/AdminCategorias';
 import AdminMarcas from '../components/Admin/AdminMarcas';
