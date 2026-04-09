@@ -31,9 +31,13 @@ const AdminUsuarios = () => {
   const handleDeletar = async (id, nome) => {
     if (window.confirm(`Tem certeza que deseja remover o usuário ${nome}?`)) {
       try {
+        if(usuarios.length > 1){
         await api.delete(`/usuarios/${id}`);
         setUsuarios(usuarios.filter(u => u.id !== id));
         alert("Usuário removido com sucesso!");
+        }else{
+          alert("Não é possível remover o último usuário.")
+        }
       } catch (err) {
         alert("Erro ao deletar usuário. Verifique suas permissões.");
       }
@@ -43,7 +47,7 @@ const AdminUsuarios = () => {
   const usuariosFiltrados = usuarios.filter(u => 
     u.username.toLowerCase().includes(busca.toLowerCase()) || 
     u.email.toLowerCase().includes(busca.toLowerCase())
-  );
+  );;
 
   const handleSalvar = async () => {
 
