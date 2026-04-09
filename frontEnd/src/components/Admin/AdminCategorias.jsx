@@ -25,16 +25,31 @@ const AdminCategorias = () => {
   };
 
   const handleSalvar = async () => {
+    if (!categoriaSelecionada.nome || categoriaSelecionada.nome.trim() === "") {
+      alert("O nome da categoria é obrigatório.");
+      return;
+    }
+    if (!categoriaSelecionada.descricao || categoriaSelecionada.descricao.trim() === "") {
+      alert("A descrição da categoria é obrigatória.");
+      return;
+    }
     try {
       if (modo === 'adicionar') {
         await api.post('/categorias', categoriaSelecionada);
+        alert("Categoria adicionada com sucesso!");
       } else {
         await api.put(`/categorias/${categoriaSelecionada.id}`, categoriaSelecionada);
+        alert("Categoria atualizada com sucesso!");
       }
       setModo('lista');
       carregarCategorias();
     } catch (err) { 
-      alert("Erro ao salvar."); 
+      console.error("Erro ao salvar categoria:", err);
+      if (err.response && err.response.data) {
+        alert(`Erro: ${err.response.data}`);
+      } else {
+        alert("Não foi possível conectar ao servidor. Tente novamente mais tarde.");
+      }
     }
   };
 
