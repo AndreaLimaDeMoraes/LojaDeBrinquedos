@@ -9,6 +9,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [username,setUsername] = useState("")
+  const [email,setEmail] = useState("")
   const [senha,setSenha] = useState("")
   const [confirmarSenha,setConfirmarSenha] = useState("")
 
@@ -20,12 +21,18 @@ const Register = () => {
       return
     }
 
+    if(!email.includes("@")){
+      alert("Email inválido")
+      return
+    }
+
     try{
 
       await api.post("/auth/register",{
-        username,
-        senha
-      })
+      username,
+      email,
+      senha
+    })
 
       alert("Conta criada com sucesso!")
       window.location.href="/admin"
@@ -74,6 +81,13 @@ const Register = () => {
                 placeholder="Usuário"
                 value={username}
                 onChange={(e)=>setUsername(e.target.value)}
+              />
+
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
               />
 
               <input
