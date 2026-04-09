@@ -60,6 +60,12 @@ public class CategoriaController {
         return ResponseEntity.noContent().build();
     }
 	
+    @PostMapping("/lote")
+    public ResponseEntity<List<CategoriaDTO>> criarEmLote(@Valid @RequestBody List<CategoriaDTO> dtos) {
+        List<CategoriaDTO> criados = categoriaService.criarVarios(dtos);
+        return ResponseEntity.ok(criados);
+    }
+
 	
 
 }

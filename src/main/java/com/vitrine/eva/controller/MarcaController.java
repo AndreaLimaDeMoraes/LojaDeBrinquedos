@@ -3,6 +3,7 @@ package com.vitrine.eva.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.vitrine.eva.dto.MarcaDTO;
 import com.vitrine.eva.model.entity.Marca;
@@ -76,4 +77,11 @@ public class MarcaController {
         }
         return null;
     }
+    
+    @PostMapping("/lote")
+    public ResponseEntity<List<MarcaDTO>> criarEmLote(@RequestBody List<MarcaDTO> dtos) {
+        List<MarcaDTO> criadas = marcaService.criarVarios(dtos);
+        return ResponseEntity.ok(criadas);
+    }
+
 }
