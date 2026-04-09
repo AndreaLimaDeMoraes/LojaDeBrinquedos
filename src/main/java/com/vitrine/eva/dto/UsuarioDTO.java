@@ -23,7 +23,7 @@ package com.vitrine.eva.dto;
 		
 	    private String senha;
 	    
-	    private String role; // USER ou ADMIN
+	    private String role = "ADMIN";
 
 		public UsuarioDTO(Long id, String username, String email, String senha) {
 			super();

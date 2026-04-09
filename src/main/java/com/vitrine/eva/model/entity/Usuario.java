@@ -22,7 +22,7 @@ public class Usuario {
 	
     private String senha;
     
-    private String role; // USER ou ADMIN
+    private String role = "ADMIN"; 
 
 	public Usuario(Long id, String username, String email, String senha) {
 		super();

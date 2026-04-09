@@ -78,7 +78,7 @@ public class UsuarioController {
                 return ResponseEntity.badRequest().body("Email inválido.");
             }
 
-         // Username já existe
+            // Username já existe
             var usuarioComMesmoNome = repository.findByUsername(usuarioAtualizado.getUsername());
             if(usuarioComMesmoNome.isPresent() && !usuarioComMesmoNome.get().getId().equals(id)){
                 return ResponseEntity.badRequest().body("Nome de usuário já existe.");
