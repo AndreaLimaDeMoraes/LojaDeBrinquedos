@@ -66,7 +66,7 @@ const Sobre = () => {
       </button>
 
       <div className="sobre-header">
-        <h1>Equipe de Desenvolvimento 🌟</h1>
+        <h1>Equipe de Desenvolvimento</h1>
         <p>Unidos para transformar o Mundo Eva em realidade.</p>
         
         <div className="projeto-links">

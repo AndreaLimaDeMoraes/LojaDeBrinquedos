@@ -23,6 +23,17 @@ const ProductModal = ({ produto, onClose }) => {
     setIndexFoto((prev) => (prev === 0 ? imagens.length - 1 : prev - 1));
   };
 
+  const handleWhatsAppClick = () => {
+    const telefone = "5511999999999"; // Coloque um número fictício ou o seu para testar
+    const mensagem = `Olá! Vi o brinquedo "${produto.nomeBrinquedo}" na vitrine da Eva Toys e gostaria de mais informações.`;
+    
+    // EncodeURIComponent serve para transformar espaços e símbolos em código de URL
+    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+    
+    // Abre em uma nova aba
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -83,7 +94,24 @@ const ProductModal = ({ produto, onClose }) => {
               <p>{produto.descricao || 'Nenhuma descrição detalhada disponível.'}</p>
             </div>
 
-            <button className="btn-buy-now">Adicionar ao Carrinho 🛒</button>
+            <button 
+              className="btn-buy-now" 
+              onClick={handleWhatsAppClick}
+              disabled={produto.quantidadeEstoque <= 0} // Desativa se estiver esgotado
+              style={{ 
+                backgroundColor: '#25D366', // Cor  WhatsApp
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                gap: '10px' 
+              }}
+            >
+              {produto.quantidadeEstoque > 0 ? (
+                <>Quero este Brinquedo!</>
+              ) : (
+                <>Produto Indisponível 😢</>
+              )}
+            </button>
           </div>
         </div>
       </div>

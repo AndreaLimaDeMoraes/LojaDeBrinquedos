@@ -30,25 +30,25 @@ const AdminPage = () => {
             className={`nav-button ${abaAtiva === 'categorias' ? 'active' : ''}`}
             onClick={() => setAbaAtiva('categorias')}
           >
-            1 - Categorias
+            Categorias
           </button>
           <button 
             className={`nav-button ${abaAtiva === 'marcas' ? 'active' : ''}`}
             onClick={() => setAbaAtiva('marcas')}
           >
-            2 - Marcas
+            Marcas
           </button>
           <button 
             className={`nav-button ${abaAtiva === 'brinquedos' ? 'active' : ''}`}
             onClick={() => setAbaAtiva('brinquedos')}
           >
-            3 - Brinquedos
+            Brinquedos
           </button>
           <button 
             className={`nav-button ${abaAtiva === 'usuarios' ? 'active' : ''}`}
             onClick={() => setAbaAtiva('usuarios')}
           >
-            4 - Usuários
+            Usuários
           </button>
         </div>
 

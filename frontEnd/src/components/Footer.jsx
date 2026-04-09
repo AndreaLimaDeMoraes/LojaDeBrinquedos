@@ -18,7 +18,7 @@ const Footer = () => {
       }}>
 	  
         <div style={{ flex: 1, textAlign: 'left' }}>
-          <h4>Loja de Brinquedos</h4>
+          <h4>Eva Toys</h4>
           <p>Levando alegria e diversão para crianças de todas as idades desde 2026.</p>
         </div>
 		
@@ -35,7 +35,7 @@ const Footer = () => {
         padding: '1.5rem', 
         borderTop: '1px solid rgba(255,255,255,0.1)' 
       }}>
-        <p>&copy; 2026 Loja de Brinquedos do AVA - Todos os direitos reservados</p>
+        <p>&copy; 2026 Loja de Brinquedos do EVA - Todos os direitos reservados</p>
       </div>
     </footer>
   );
