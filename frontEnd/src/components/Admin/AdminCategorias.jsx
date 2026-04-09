@@ -33,6 +33,15 @@ const AdminCategorias = () => {
       alert("A descrição da categoria é obrigatória.");
       return;
     }
+
+    const nomeJaExiste = categorias.some(m => 
+      m.nome.toLowerCase().trim() === categoriaSelecionada.nome.toLowerCase().trim() && 
+      m.id !== categoriaSelecionada.id // Garante que, se for edição, ele permita salvar a própria categoria
+    );
+
+    if (nomeJaExiste) {
+      return alert("Já existe uma categoria cadastrada com este nome.");
+    }
     try {
       if (modo === 'adicionar') {
         await api.post('/categorias', categoriaSelecionada);

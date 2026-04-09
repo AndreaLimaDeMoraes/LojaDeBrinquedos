@@ -50,20 +50,39 @@ const AdminMarcas = () => {
   };
 
   const handleSalvar = async () => {
+    // 1. Validação de campos vazios
     if (!marcaSelecionada.nome || !marcaSelecionada.logoUrl) {
         return alert("Por favor, preencha o nome e selecione uma logo.");
     }
 
+    // 2. Checar se o nome já existe (Case Insensitive - ignora maiúsculas/minúsculas)
+    const nomeJaExiste = marcas.some(m => 
+      m.nome.toLowerCase().trim() === marcaSelecionada.nome.toLowerCase().trim() && 
+      m.id !== marcaSelecionada.id // Garante que, se for edição, ele permita salvar a própria marca
+    );
+
+    if (nomeJaExiste) {
+      return alert("Já existe uma marca cadastrada com este nome.");
+    }
+
+    // 3. Lógica de salvamento
     try {
       if (modo === 'adicionar') {
         await api.post('/marcas', marcaSelecionada);
+        alert("Marca adicionada com sucesso!");
       } else {
         await api.put(`/marcas/${marcaSelecionada.id}`, marcaSelecionada);
+        alert("Marca atualizada com sucesso!");
       }
       setModo('lista');
       carregarMarcas();
     } catch (err) { 
-      alert("Erro ao salvar marca."); 
+
+      if (err.response && err.response.status === 400) {
+          alert(err.response.data || "Erro de validação ao salvar.");
+      } else {
+          alert("Erro ao salvar marca."); 
+      }
     }
   };
 
