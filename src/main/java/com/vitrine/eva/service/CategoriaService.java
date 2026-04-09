@@ -91,7 +91,22 @@ public class CategoriaService {
 		return dto;
 	}
 	
-	
+	@Transactional
+	public List<CategoriaDTO> criarVarios(List<CategoriaDTO> dtos) {
+	    // Transforma a lista de DTOs em lista de Entidades
+	    List<Categoria> categorias = dtos.stream()
+	            .map(this::toCategoria)
+	            .toList();
+
+	    // Salva tudo de uma vez
+	    List<Categoria> salvas = categoriaRepository.saveAll(categorias);
+
+	    // Retorna a lista de DTOs atualizada (agora com os IDs gerados)
+	    return salvas.stream()
+	            .map(this::toDto)
+	            .toList();
+	}
+
 	
 	
 }

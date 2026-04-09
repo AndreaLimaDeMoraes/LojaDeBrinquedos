@@ -64,4 +64,13 @@ public class BrinquedoController {
     public ResponseEntity<List<BrinquedoDTO>> listarPromocoes() {
         return ResponseEntity.ok(brinquedoService.listarPromocoes());
     }
+    
+    @PostMapping("/lote")
+    public ResponseEntity<List<BrinquedoDTO>> criarEmLote(@RequestBody List<BrinquedoDTO> dtos) {
+        List<BrinquedoDTO> novos = brinquedoService.salvarLote(dtos);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novos);
+    }
+
+    
+    
 }

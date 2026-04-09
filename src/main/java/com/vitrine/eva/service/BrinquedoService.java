@@ -117,4 +117,31 @@ public class BrinquedoService {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+    
+    @Transactional
+    public List<BrinquedoDTO> salvarLote(List<BrinquedoDTO> dtos) {
+        LocalDateTime agora = LocalDateTime.now();
+
+        List<Brinquedo> entidades = dtos.stream().map(dto -> {
+            Brinquedo brinquedo = toEntity(dto);
+            
+            // Regras de negócio para novos registros
+            if (brinquedo.getDataCadastro() == null) {
+                brinquedo.setDataCadastro(agora);
+            }
+            if (brinquedo.getDestacar() == null) {
+                brinquedo.setDestacar(false);
+            }
+            
+            return brinquedo;
+        }).collect(Collectors.toList());
+
+        // O saveAll é muito mais performático que salvar um por um num loop
+        List<Brinquedo> salvas = brinquedoRepository.saveAll(entidades);
+
+        return salvas.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
 }
