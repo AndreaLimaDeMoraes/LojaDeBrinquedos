@@ -1,22 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FeaturedToys.css';
 
 const FeaturedToys = ({ brinquedos = [] }) => {
   const navigate = useNavigate();
+  const [quantidadeExibida, setQuantidadeExibida] = useState(4); // Começa com 4 por padrão
 
-  // Lógica de Priorização (Ordenação Multi-nível)
+  // --- LÓGICA DE RESPONSIVIDADE DINÂMICA ---
+  useEffect(() => {
+    const atualizarQuantidade = () => {
+      const larguraTela = window.innerWidth;
+      
+      // O seu CSS tem padding de 5% de cada lado (total 10%). 
+      // Multiplicar por 0.9 nos dá a largura "útil" real da tela.
+      const larguraUtil = larguraTela * 0.9; 
+      
+      // Cada card tem um min-width de 240px + um gap de 25px no grid = ~265px de espaço ocupado
+      const tamanhoOcupadoPorCard = 265;
+      
+      // Dividimos a tela útil pelo tamanho do card e arredondamos para baixo.
+      // O Math.max(1, ...) garante que pelo menos 1 brinquedo sempre apareça no mobile.
+      const quantidadeQueCabe = Math.max(1, Math.floor(larguraUtil / tamanhoOcupadoPorCard));
+      
+      setQuantidadeExibida(quantidadeQueCabe);
+    };
+
+    // Executa a conta logo que o componente é montado na tela
+    atualizarQuantidade();
+
+    // Fica escutando caso o usuário redimensione a janela (ou vire o celular de lado)
+    window.addEventListener('resize', atualizarQuantidade);
+    
+    // Limpa o event listener quando o componente for desmontado para não pesar a memória
+    return () => window.removeEventListener('resize', atualizarQuantidade);
+  }, []);
+
+  // --- LÓGICA DE PRIORIZAÇÃO ---
   const sortedToys = Array.isArray(brinquedos)
-    ? [...brinquedos] // Criamos uma cópia para não alterar o array original
+    ? [...brinquedos] 
         .sort((a, b) => {
           // 1º Critério: Destaque (1 vem antes de 0)
           if (Number(b.destacar) !== Number(a.destacar)) {
             return Number(b.destacar) - Number(a.destacar);
           }
-          // 2º Critério: Maior Desconto (dentro do grupo de destaque ou fora dele)
+          // 2º Critério: Maior Desconto
           return (Number(b.desconto) || 0) - (Number(a.desconto) || 0);
         })
-        .slice(0, 8) // Agora mostramos um pouco mais (ex: 8), já que inclui todos
+        // Aqui está a mágica: usamos o número dinâmico calculado acima!
+        .slice(0, quantidadeExibida)
     : [];
 
   if (sortedToys.length === 0) return null;
@@ -49,7 +80,7 @@ const FeaturedToys = ({ brinquedos = [] }) => {
               onClick={() => navigate(`/produtos?id=${toy.id}`)}
             >
               <div className="produto-img-wrapper">
-                {/* Tag de Desconto (Só aparece se tiver desconto) */}
+                {/* Tag de Desconto */}
                 {temDesconto && (
                   <div className="tag-desconto">
                     -{toy.desconto}%

@@ -5,76 +5,100 @@ import './Produtos.css';
 import ProductModal from '../components/Produtos/ProductModal';
 import Footer from '../components/Footer';
 
-
-
 const Produtos = () => {
   const navigate = useNavigate();
   const isAuthenticated = !!localStorage.getItem('token');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [apenasPromocoes, setApenasPromocoes] = useState(false); // Novo filtro
+  
+  // Pegando valores iniciais da URL
   const categoriaInicial = searchParams.get('categoria') || '';
   const marcaInicial = searchParams.get('marca') || '';
+  const idadeInicial = searchParams.get('idade') || '';
+  const promoInicial = searchParams.get('promo') === 'true';
 
+  // Estados dos Filtros
+  const [apenasPromocoes, setApenasPromocoes] = useState(promoInicial);
   const [filtroCategoria, setFiltroCategoria] = useState(categoriaInicial);
   const [filtroMarca, setFiltroMarca] = useState(marcaInicial);
+  const [filtroIdade, setFiltroIdade] = useState(idadeInicial); // Novo estado
+
+  // Dados
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [marcas, setMarcas] = useState([]);
   const [brinquedoSelecionado, setBrinquedoSelecionado] = useState(null);
 
+  // --- Handlers para atualizar a URL e o Estado ---
+  const atualizarFiltrosNaURL = (novosValores) => {
+    // Mescla os valores atuais com o que está sendo mudado
+    const params = {
+      categoria: filtroCategoria,
+      marca: filtroMarca,
+      idade: filtroIdade,
+      promo: apenasPromocoes ? 'true' : 'false',
+      ...novosValores
+    };
+    
+    // Limpa parâmetros vazios para deixar a URL mais bonita
+    const urlParamsLimpos = {};
+    Object.keys(params).forEach(key => {
+      if (params[key] && params[key] !== 'false') {
+        urlParamsLimpos[key] = params[key];
+      }
+    });
+
+    setSearchParams(urlParamsLimpos);
+  };
+
   const handleFiltroCategoria = (id) => {
     setFiltroCategoria(id);
-    // Ao filtrar, passamos apenas os filtros, ignorando o 'id' do produto
-    setSearchParams({ 
-      categoria: id, 
-      marca: filtroMarca,
-      promo: apenasPromocoes ? 'true' : 'false' 
-    });
+    atualizarFiltrosNaURL({ categoria: id });
   };
 
   const handleFiltroMarca = (id) => {
     setFiltroMarca(id);
-    setSearchParams({ 
-      categoria: filtroCategoria, 
-      marca: id,
-      promo: apenasPromocoes ? 'true' : 'false'
-    });
+    atualizarFiltrosNaURL({ marca: id });
   };
 
-  // Crie uma função para o Checkbox também para ele atualizar a URL
+  const handleFiltroIdade = (idade) => {
+    setFiltroIdade(idade);
+    atualizarFiltrosNaURL({ idade: idade });
+  };
+
   const handleCheckPromo = (checked) => {
     setApenasPromocoes(checked);
-    setSearchParams({
-      categoria: filtroCategoria,
-      marca: filtroMarca,
-      promo: checked ? 'true' : 'false'
-    });
+    atualizarFiltrosNaURL({ promo: checked ? 'true' : 'false' });
   };
 
   const fecharModal = () => {
     setBrinquedoSelecionado(null);
-    // Remove apenas o 'id' da URL, mantendo categoria e marca se existirem
     const novosParams = new URLSearchParams(searchParams);
     novosParams.delete('id');
     setSearchParams(novosParams);
   };
 
+  // Buscando Categorias e Marcas
   useEffect(() => {
     api.get('/categorias').then(res => setCategorias(res.data)).catch(console.error);
     api.get('/marcas').then(res => setMarcas(res.data)).catch(console.error);
   }, []);
 
+  // Buscando e Filtrando Brinquedos
   useEffect(() => {
     api.get('/brinquedos')
       .then(res => {
         let dados = res.data;
 
-        // 1. Filtros de Categoria e Marca
+        // 1. Filtros Básicos (Categoria, Marca e Idade)
         if (filtroCategoria) {
           dados = dados.filter(p => p.categoria?.id?.toString() === filtroCategoria.toString());
         }
         if (filtroMarca) {
           dados = dados.filter(p => p.marca?.id?.toString() === filtroMarca.toString());
+        }
+        if (filtroIdade) {
+          // Garante que a comparação seja exata com as strings que você cadastrou
+          dados = dados.filter(p => p.idadeRecomendada === filtroIdade); 
         }
 
         // 2. Filtro de Promoções (Checkbox)
@@ -93,8 +117,9 @@ const Produtos = () => {
         setProdutos(dados);
       })
       .catch(err => console.error("Erro ao buscar:", err));
-  }, [filtroCategoria, filtroMarca, apenasPromocoes]); // Adicionado apenasPromocoes aqui
+  }, [filtroCategoria, filtroMarca, filtroIdade, apenasPromocoes]); // Colocamos todos aqui!
 
+  // Abrir modal automaticamente se tiver ID na URL
   useEffect(() => {
     const productId = searchParams.get('id');
     if (productId && produtos.length > 0) {
@@ -146,8 +171,7 @@ const Produtos = () => {
         </div>
       </header>
 
-      {/* CONTEÚDO ORIGINAL */}
-      
+      {/* CONTEÚDO */}
       <div className="produtos-layout">
         <aside className="filtros-sidebar">
           <h3>Filtros</h3>
@@ -189,13 +213,33 @@ const Produtos = () => {
               ))}
             </select>
           </div>
+
+          {/* NOVO FILTRO DE IDADE AQUI! */}
+          <div className="filtro-grupo">
+            <label>Idade Recomendada</label>
+            <select 
+              value={filtroIdade} 
+              onChange={(e) => handleFiltroIdade(e.target.value)}
+            >
+              <option value="">Todas as Idades</option>
+              <option value="Bebês: 0-12 meses">Bebês: 0-12 meses</option>
+              <option value="Bebês: 1-2 anos">Bebês: 1-2 anos</option>
+              <option value="Crianças: 3-5 anos">Crianças: 3-5 anos</option>
+              <option value="Crianças: 6-10 anos">Crianças: 6-10 anos</option>
+              <option value="Crianças: até 12 anos">Crianças: até 12 anos</option>
+              <option value="Adolescentes: 13-17 anos">Adolescentes: 13-17 anos</option>
+              <option value="Para todas as idades">Para todas as idades</option>
+            </select>
+          </div>
           
           <button 
             className="btn-limpar"
             onClick={() => { 
               setFiltroCategoria(''); 
               setFiltroMarca(''); 
-              setSearchParams({}); // Isso limpa a URL!
+              setFiltroIdade('');
+              setApenasPromocoes(false);
+              setSearchParams({}); // Limpa a URL!
             }}
             >
             Limpar Filtros
@@ -246,17 +290,15 @@ const Produtos = () => {
         {brinquedoSelecionado && (
           <ProductModal 
             produto={brinquedoSelecionado} 
-            onClose={fecharModal} // <--- Usando a função nova aqui
+            onClose={fecharModal} 
           />
         )}
       </div>
-	  
-	  {/* FOOTER */}
-	       <Footer />
+    
+      {/* FOOTER */}
+      <Footer />
     </div>
-	
   );
-  
 };
 
 export default Produtos;
