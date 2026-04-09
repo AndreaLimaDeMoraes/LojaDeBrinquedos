@@ -60,4 +60,48 @@ public class UsuarioController {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    
+ // 4. Atualizar usuário (ADMIN)
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+
+        return repository.findById(id).map(usuario -> {
+
+            // Username vazio
+            if(usuarioAtualizado.getUsername() == null || usuarioAtualizado.getUsername().trim().isEmpty()){
+                return ResponseEntity.badRequest().body("Nome de usuário não pode estar vazio.");
+            }
+
+            // Email inválido
+            if(usuarioAtualizado.getEmail() == null || !usuarioAtualizado.getEmail().contains("@")){
+                return ResponseEntity.badRequest().body("Email inválido.");
+            }
+
+         // Username já existe
+            var usuarioComMesmoNome = repository.findByUsername(usuarioAtualizado.getUsername());
+            if(usuarioComMesmoNome.isPresent() && !usuarioComMesmoNome.get().getId().equals(id)){
+                return ResponseEntity.badRequest().body("Nome de usuário já existe.");
+            }
+
+            // Email já existe
+            var usuarioComMesmoEmail = repository.findByEmail(usuarioAtualizado.getEmail());
+            if(usuarioComMesmoEmail.isPresent() && !usuarioComMesmoEmail.get().getId().equals(id)){
+                return ResponseEntity.badRequest().body("Email já está em uso.");
+            }
+
+
+            usuario.setUsername(usuarioAtualizado.getUsername());
+            usuario.setEmail(usuarioAtualizado.getEmail());
+
+            repository.save(usuario);
+
+            usuario.setSenha(null);
+
+            return ResponseEntity.ok(usuario);
+
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+
 }

@@ -52,10 +52,17 @@ public class AuthController {
     
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Usuario usuario) {
+
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(usuario));
+
+            Usuario novoUsuario = service.registrar(usuario);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+
         } catch (RuntimeException e) {
+
             return ResponseEntity.badRequest().body(e.getMessage());
+
         }
     }
 
