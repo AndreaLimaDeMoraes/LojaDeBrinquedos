@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const AdminUsuarios = () => {
   const navigate = useNavigate();
+  const [modo, setModo] = useState("lista");
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [busca, setBusca] = useState("");
   const [carregando, setCarregando] = useState(true);
@@ -43,6 +45,105 @@ const AdminUsuarios = () => {
     u.email.toLowerCase().includes(busca.toLowerCase())
   );
 
+  const handleSalvar = async () => {
+
+    // validação username
+  if(!usuarioSelecionado.username){
+    alert("Nome de usuário é obrigatório")
+    return
+  }
+
+  // validação email
+  if(!usuarioSelecionado.email){
+    alert("Email é obrigatório")
+    return
+  }
+
+  if(!usuarioSelecionado.email.includes("@")){
+    alert("Email inválido")
+    return
+  }
+
+  try {
+
+    await api.put(`/usuarios/${usuarioSelecionado.id}`, usuarioSelecionado)
+
+    alert("Usuário atualizado com sucesso!")
+
+    setModo("lista")
+    carregarUsuarios()
+
+  } catch (err) {
+
+    if(err.response){
+      alert(err.response.data)
+    }else{
+      alert("Erro ao atualizar usuário.")
+    }
+
+  }
+}
+
+
+  if(modo === "editar"){
+  return (
+
+    <div className="form-container">
+
+      <h2>Editar Usuário</h2>
+
+      <div className="form-group">
+        <label>Username</label>
+
+        <input
+          type="text"
+          className="toy-input"
+          value={usuarioSelecionado.username}
+          onChange={(e)=>setUsuarioSelecionado({
+            ...usuarioSelecionado,
+            username:e.target.value
+          })}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Email</label>
+
+        <input
+          type="text"
+          className="toy-input"
+          value={usuarioSelecionado.email}
+          onChange={(e)=>setUsuarioSelecionado({
+            ...usuarioSelecionado,
+            email:e.target.value
+          })}
+        />
+      </div>
+
+      <div className="actions-footer">
+
+        <button 
+        className="btn-action btn-del"
+        onClick={()=>setModo("lista")}
+        >
+        Cancelar
+        </button>
+
+        <button 
+        className="btn-action btn-add"
+        onClick={handleSalvar}
+        >
+        Salvar
+        </button>
+
+      </div>
+
+    </div>
+
+  )
+}
+
+
   return (
     <div className="admin-container">
       <div className="header-row">
@@ -73,7 +174,15 @@ const AdminUsuarios = () => {
         <div className="items-container">
           {usuariosFiltrados.length > 0 ? (
             usuariosFiltrados.map(user => (
-              <div key={user.id} className="item-row">
+            <div 
+              key={user.id} 
+              className="item-row"
+              onClick={()=>{
+              setUsuarioSelecionado(user)
+              setModo("editar")
+            }}
+            >
+
                 <div className="user-info">
                   <div className="user-avatar">
                     {user.username.charAt(0).toUpperCase()}
@@ -89,8 +198,10 @@ const AdminUsuarios = () => {
                 
                 <button 
                   className="btn-action btn-del" 
-                  onClick={() => handleDeletar(user.id, user.username)}
-                  title="Excluir Usuário"
+                  onClick={(e) => {
+                  e.stopPropagation()
+                  handleDeletar(user.id, user.username)
+                  }}
                 >
                   Excluir
                 </button>

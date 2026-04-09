@@ -38,8 +38,14 @@ const Register = () => {
       window.location.href="/admin"
 
     }catch(err){
-      alert("Erro ao registrar usuário")
-    }
+
+  if(err.response){
+    alert(err.response.data)
+  }else{
+    alert("Erro ao registrar usuário")
+  }
+
+  }
 
   }
 
