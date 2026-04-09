@@ -102,43 +102,47 @@ const AdminBrinquedos = () => {
   };
 
   const handleSalvar = async () => {
-    const { 
-      nomeBrinquedo, valor, quantidadeEstoque, categoria, 
-      marca, imagens, descricao, idadeRecomendada, desconto 
-    } = brinquedoSelecionado;
-
-    if (!nomeBrinquedo || !valor || !quantidadeEstoque || !categoria.id || 
-        !marca.id || !descricao || !idadeRecomendada) {
-      return alert("Todos os campos marcados com * são obrigatórios.");
+    // 1. Validações básicas
+    if (!brinquedoSelecionado.nomeBrinquedo || !brinquedoSelecionado.marca?.id) {
+      return alert("Por favor, preencha o nome do brinquedo e selecione uma marca.");
     }
 
-    if (imagens.length === 0) {
-      return alert("Adicione pelo menos uma imagem do brinquedo.");
+    // 2. Validação de Duplicidade (Nome + Marca)
+    // Usamos String() nos IDs para garantir que "10" seja igual a 10
+    const brinquedoDuplicado = brinquedos.some(b => 
+      b.nomeBrinquedo.toLowerCase().trim() === brinquedoSelecionado.nomeBrinquedo.toLowerCase().trim() &&
+      String(b.marca?.id) === String(brinquedoSelecionado.marca?.id) &&
+      String(b.id) !== String(brinquedoSelecionado.id) // O PULO DO GATO ESTÁ AQUI
+    );
+
+    if (brinquedoDuplicado) {
+      return alert(`Já existe um brinquedo chamado "${brinquedoSelecionado.nomeBrinquedo}" cadastrado para esta marca.`);
     }
 
-    const nValor = parseFloat(valor);
-    const nEstoque = parseInt(quantidadeEstoque);
-    const nDesconto = parseFloat(desconto) || 0;
-
-    if (nValor <= 0) return alert("O preço deve ser maior que zero.");
-    if (nEstoque <= 0) return alert("O estoque deve ser de pelo menos 1 unidade.");
-    if (nDesconto < 0) return alert("O desconto não pode ser um número negativo.");
-
+    // 3. Fluxo de salvamento
     try {
-      const objetoFinal = { 
-        ...brinquedoSelecionado, 
-        valor: nValor, 
-        quantidadeEstoque: nEstoque, 
-        desconto: nDesconto 
-      };
-
-      if (modo === 'adicionar') await api.post('/brinquedos', objetoFinal);
-      else await api.put(`/brinquedos/${brinquedoSelecionado.id}`, objetoFinal);
+      if (modo === 'adicionar') {
+        await api.post('/brinquedos', brinquedoSelecionado);
+        alert("Brinquedo adicionado com sucesso!");
+      } else {
+        await api.put(`/brinquedos/${brinquedoSelecionado.id}`, brinquedoSelecionado);
+        alert("Brinquedo atualizado com sucesso!");
+        return; // Para evitar recarregar a lista duas vezes, já que o modal de edição é o mesmo do de adição
+      }
       
+      // SÓ muda de modo e recarrega se a API responder com sucesso
       setModo('lista');
-      carregarDados();
+      carregarBrinquedos(); 
+
     } catch (err) {
-      alert("Erro ao salvar no servidor. Verifique os dados.");
+      console.error("Erro ao salvar:", err);
+      // Se der erro na API, ele cai aqui e NÃO volta para a lista, 
+      // permitindo que o usuário corrija o erro sem perder o que digitou.
+      if (err.response && err.response.data) {
+        alert(`Erro no servidor: ${err.response.data}`);
+      } else {
+        alert("Erro ao conectar com o servidor.");
+      }
     }
   };
 
