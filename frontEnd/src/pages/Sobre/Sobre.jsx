@@ -54,7 +54,7 @@ const Sobre = () => {
       foto: fotoFernando,
       github: "https://github.com/fernandokeijo",
       linkedin: "https://www.linkedin.com/in/fernandokdomingos/",
-      bio: "Atuou na arquitetura robusta do sistema e na segurança da informação. Colaborou no desenvolvimento de marcas no back-end e na implementação segura dos módulos de autenticação, login e registro de novos membros."
+      bio: "Colaborou no desenvolvimento de marcas no back-end e na implementação segura dos módulos de autenticação, login e registro de novos membros."
     },
   ];
 

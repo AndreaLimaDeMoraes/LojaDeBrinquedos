@@ -1,6 +1,18 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleScrollOrNavigate = (id) => {
+    // Se já está na Home → scroll
+    if (location.pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+navigate(`/?scrollTo=${id}`);    }
+  };
+
   return (
     <footer>
       
@@ -24,12 +36,35 @@ const Footer = () => {
 		
 		<div style={{ flex: 1, textAlign: 'right' }}>
 		  <h4>Institucional</h4>
-		  <a href="#team-section" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Sobre nós</a>
-		  <a href="/sobre" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Nossa equipe</a>
-		  <a href="#fale-conosco" style={{ display: 'block', color: '#5a5a5a', textDecoration: 'none', marginBottom: '0.5rem' }}>Fale conosco</a>
+
+		  {/* SOBRE (TEAM) */}
+		  <span 
+        onClick={() => handleScrollOrNavigate('team-section')}
+        style={{ display: 'block', color: '#5a5a5a', marginBottom: '0.5rem', cursor: 'pointer' }}
+      >
+        Sobre nós
+      </span>
+
+		  {/* NOSSA EQUIPE (rota) */}
+		  <span 
+        onClick={() => navigate('/sobre')}
+        style={{ display: 'block', color: '#5a5a5a', marginBottom: '0.5rem', cursor: 'pointer' }}
+      >
+        Nossa equipe
+      </span>
+
+		  {/* CONTATO */}
+		  <span 
+        onClick={() => handleScrollOrNavigate('fale-conosco')}
+        style={{ display: 'block', color: '#5a5a5a', marginBottom: '0.5rem', cursor: 'pointer' }}
+      >
+        Fale conosco
+      </span>
+
 		</div>
 		
       </div>
+
       <div style={{ 
         textAlign: 'center', 
         padding: '1.5rem', 

@@ -35,7 +35,7 @@ const Login = () => {
 
   {/* HEADER */}
   <header className="home-header">
-    <h1 className="home-title">Vitrine de Brinquedos 🧸</h1>
+    <h1 className="home-title">Eva Toys</h1>
 
     <button 
               type="button"

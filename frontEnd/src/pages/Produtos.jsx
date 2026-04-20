@@ -16,11 +16,14 @@ const Produtos = () => {
   const idadeInicial = searchParams.get('idade') || '';
   const promoInicial = searchParams.get('promo') === 'true';
 
+  // estado da pesquisa
+  const [termoPesquisa, setTermoPesquisa] = useState('');
+
   // Estados dos Filtros
   const [apenasPromocoes, setApenasPromocoes] = useState(promoInicial);
   const [filtroCategoria, setFiltroCategoria] = useState(categoriaInicial);
   const [filtroMarca, setFiltroMarca] = useState(marcaInicial);
-  const [filtroIdade, setFiltroIdade] = useState(idadeInicial); // Novo estado
+  const [filtroIdade, setFiltroIdade] = useState(idadeInicial);
 
   // Dados
   const [produtos, setProdutos] = useState([]);
@@ -28,9 +31,8 @@ const Produtos = () => {
   const [marcas, setMarcas] = useState([]);
   const [brinquedoSelecionado, setBrinquedoSelecionado] = useState(null);
 
-  // --- Handlers para atualizar a URL e o Estado ---
+  // --- Handlers ---
   const atualizarFiltrosNaURL = (novosValores) => {
-    // Mescla os valores atuais com o que está sendo mudado
     const params = {
       categoria: filtroCategoria,
       marca: filtroMarca,
@@ -39,7 +41,6 @@ const Produtos = () => {
       ...novosValores
     };
     
-    // Limpa parâmetros vazios para deixar a URL mais bonita
     const urlParamsLimpos = {};
     Object.keys(params).forEach(key => {
       if (params[key] && params[key] !== 'false') {
@@ -77,19 +78,28 @@ const Produtos = () => {
     setSearchParams(novosParams);
   };
 
-  // Buscando Categorias e Marcas
+  const handleCliqueProduto = (produto) => {
+    setBrinquedoSelecionado(produto);
+  };
+
+  // Buscar categorias e marcas
   useEffect(() => {
     api.get('/categorias').then(res => setCategorias(res.data)).catch(console.error);
     api.get('/marcas').then(res => setMarcas(res.data)).catch(console.error);
   }, []);
 
-  // Buscando e Filtrando Brinquedos
+  // Buscar e filtrar produtos
   useEffect(() => {
     api.get('/brinquedos')
       .then(res => {
         let dados = res.data;
 
-        // 1. Filtros Básicos (Categoria, Marca e Idade)
+        if (termoPesquisa) {
+          dados = dados.filter(p =>
+            p.nomeBrinquedo.toLowerCase().includes(termoPesquisa.toLowerCase())
+          );
+        }
+
         if (filtroCategoria) {
           dados = dados.filter(p => p.categoria?.id?.toString() === filtroCategoria.toString());
         }
@@ -97,16 +107,13 @@ const Produtos = () => {
           dados = dados.filter(p => p.marca?.id?.toString() === filtroMarca.toString());
         }
         if (filtroIdade) {
-          // Garante que a comparação seja exata com as strings que você cadastrou
-          dados = dados.filter(p => p.idadeRecomendada === filtroIdade); 
+          dados = dados.filter(p => p.idadeRecomendada === filtroIdade);
         }
 
-        // 2. Filtro de Promoções (Checkbox)
         if (apenasPromocoes) {
           dados = dados.filter(p => Number(p.desconto) > 0);
         }
 
-        // 3. Ordenação Inteligente (Destaque + Desconto)
         dados.sort((a, b) => {
           if (Number(b.destacar) !== Number(a.destacar)) {
             return Number(b.destacar) - Number(a.destacar);
@@ -117,22 +124,19 @@ const Produtos = () => {
         setProdutos(dados);
       })
       .catch(err => console.error("Erro ao buscar:", err));
-  }, [filtroCategoria, filtroMarca, filtroIdade, apenasPromocoes]); // Colocamos todos aqui!
+  }, [filtroCategoria, filtroMarca, filtroIdade, apenasPromocoes, termoPesquisa]);
 
-  // Abrir modal automaticamente se tiver ID na URL
+  // Abrir modal via URL
   useEffect(() => {
     const productId = searchParams.get('id');
     if (productId && produtos.length > 0) {
       const encontrado = produtos.find(p => p.id.toString() === productId);
-      if (encontrado) {
-        setBrinquedoSelecionado(encontrado);
-      }
+      if (encontrado) setBrinquedoSelecionado(encontrado);
     }
   }, [searchParams, produtos]);
 
   return (
     <div className="produtos-page">
-      {/* HEADER */}
       <header className="home-header">
         <div className="logo" onClick={() => navigate('/')}>
           <div className="logo-capsula">
@@ -171,11 +175,23 @@ const Produtos = () => {
         </div>
       </header>
 
-      {/* CONTEÚDO */}
+      {/* ✅ Toast REMOVIDO */}
+
       <div className="produtos-layout">
         <aside className="filtros-sidebar">
           <h3>Filtros</h3>
-          
+
+          <div className="filtro-grupo">
+            <label>Buscar Produto</label>
+            <input
+              type="text"
+              placeholder="Digite o nome do produto"
+              value={termoPesquisa}
+              onChange={(e) => setTermoPesquisa(e.target.value)}
+              className="input-busca-estilizado"
+            />
+          </div>
+
           <div className="filtro-grupo checkbox-promo">
             <label className="checkbox-container">
               <input 
@@ -184,16 +200,13 @@ const Produtos = () => {
                 onChange={(e) => handleCheckPromo(e.target.checked)} 
               />
               <span className="checkmark"></span>
-              <p1>Apenas Promoções</p1>
+              <span>Apenas Promoções</span>
             </label>
           </div>
 
           <div className="filtro-grupo">
             <label>Categoria</label>
-            <select 
-              value={filtroCategoria} 
-              onChange={(e) => handleFiltroCategoria(e.target.value)}
-            >
+            <select value={filtroCategoria} onChange={(e) => handleFiltroCategoria(e.target.value)}>
               <option value="">Todas as Categorias</option>
               {categorias.map(cat => (
                 <option key={cat.id} value={cat.id}>{cat.nome}</option>
@@ -203,10 +216,7 @@ const Produtos = () => {
 
           <div className="filtro-grupo">
             <label>Marca</label>
-            <select 
-              value={filtroMarca} 
-              onChange={(e) => handleFiltroMarca(e.target.value)}
-            >
+            <select value={filtroMarca} onChange={(e) => handleFiltroMarca(e.target.value)}>
               <option value="">Todas as Marcas</option>
               {marcas.map(marca => (
                 <option key={marca.id} value={marca.id}>{marca.nome}</option>
@@ -214,13 +224,9 @@ const Produtos = () => {
             </select>
           </div>
 
-          {/* NOVO FILTRO DE IDADE AQUI! */}
           <div className="filtro-grupo">
             <label>Idade Recomendada</label>
-            <select 
-              value={filtroIdade} 
-              onChange={(e) => handleFiltroIdade(e.target.value)}
-            >
+            <select value={filtroIdade} onChange={(e) => handleFiltroIdade(e.target.value)}>
               <option value="">Todas as Idades</option>
               <option value="Bebês: 0-12 meses">Bebês: 0-12 meses</option>
               <option value="Bebês: 1-2 anos">Bebês: 1-2 anos</option>
@@ -231,17 +237,18 @@ const Produtos = () => {
               <option value="Para todas as idades">Para todas as idades</option>
             </select>
           </div>
-          
+
           <button 
             className="btn-limpar"
             onClick={() => { 
-              setFiltroCategoria(''); 
-              setFiltroMarca(''); 
+              setFiltroCategoria('');
+              setFiltroMarca('');
               setFiltroIdade('');
               setApenasPromocoes(false);
-              setSearchParams({}); // Limpa a URL!
+              setTermoPesquisa('');
+              setSearchParams({});
             }}
-            >
+          >
             Limpar Filtros
           </button>
         </aside>
@@ -249,26 +256,45 @@ const Produtos = () => {
         <main className="produtos-grid">
           {produtos.length === 0 ? (
             <div className="sem-produtos">
-              <h2>Poxa, nenhum brinquedo encontrado! 😢</h2>
+              <h2>Poxa, nenhum brinquedo encontrado!</h2>
             </div>
           ) : (
             produtos.map(produto => {
               const temDesconto = Number(produto.desconto) > 0;
               const valorOriginal = Number(produto.valor);
-              const valorFinal = temDesconto ? valorOriginal - (valorOriginal * (produto.desconto / 100)) : valorOriginal;
+              const valorFinal = temDesconto
+                ? valorOriginal - (valorOriginal * (produto.desconto / 100))
+                : valorOriginal;
+              
+              // Mantém aviso visual no card
+              const semEstoque = !produto.quantidadeEstoque || Number(produto.quantidadeEstoque) === 0;
 
               return (
-                <div className="produto-card" key={produto.id} onClick={() => setBrinquedoSelecionado(produto)}>
+                <div 
+                  className={`produto-card ${semEstoque ? 'sem-estoque' : ''}`} 
+                  key={produto.id} 
+                  onClick={() => handleCliqueProduto(produto)}
+                >
                   <div className="produto-img-wrapper">
                     {temDesconto && <div className="tag-desconto">-{produto.desconto}%</div>}
-                    {produto.imagens && produto.imagens[0] ? (
+                    {produto.imagens?.[0] ? (
                       <img src={produto.imagens[0]} alt={produto.nomeBrinquedo} className="produto-img" />
                     ) : (
                       <div className="produto-placeholder">🧸</div>
                     )}
                   </div>
+                  
                   <div className="produto-info">
                     <h4>{produto.nomeBrinquedo}</h4>
+                    
+                    {/* ✅ "Volta em breve" FICA NO CARD */}
+                    {semEstoque && (
+                      <div className="aviso-esgotado">
+                        <span className="status-esgotado">Esgotado</span>
+                        <span className="msg-breve">Volta em breve</span>
+                      </div>
+                    )}
+                    
                     <div className="produto-preco-container">
                       {temDesconto ? (
                         <>
@@ -279,23 +305,25 @@ const Produtos = () => {
                         <span className="produto-preco">R$ {valorOriginal.toFixed(2)}</span>
                       )}
                     </div>
-                    <button className="btn-comprar">Ver Detalhes</button>
+                    <button 
+                      className="btn-comprar" 
+                      disabled={semEstoque}
+                      style={semEstoque ? { opacity: 0.6, cursor: 'not-allowed' } : {}}
+                    >
+                      {semEstoque ? 'Esgotado' : 'Ver Detalhes'}
+                    </button>
                   </div>
                 </div>
-              )
+              );
             })
           )}
         </main>
 
         {brinquedoSelecionado && (
-          <ProductModal 
-            produto={brinquedoSelecionado} 
-            onClose={fecharModal} 
-          />
+          <ProductModal produto={brinquedoSelecionado} onClose={fecharModal} />
         )}
       </div>
-    
-      {/* FOOTER */}
+
       <Footer />
     </div>
   );

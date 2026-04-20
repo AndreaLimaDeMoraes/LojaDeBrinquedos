@@ -121,14 +121,13 @@ const AdminBrinquedos = () => {
     const nDesconto = parseFloat(desconto) || 0;
 
     if (nValor <= 0) return alert("O preço deve ser maior que zero.");
-    if (nEstoque <= 0) return alert("O estoque deve ser de pelo menos 1 unidade.");
+    if (nEstoque < 0) return alert("O estoque não pode ser negativo.");
     if (nDesconto < 0) return alert("O desconto não pode ser um número negativo.");
 
-    // 2. Validação de Duplicidade (Nome + Marca)
     const brinquedoDuplicado = brinquedos.some(b => 
       b.nomeBrinquedo.toLowerCase().trim() === brinquedoSelecionado.nomeBrinquedo.toLowerCase().trim() &&
       Number(b.marca?.id) === Number(brinquedoSelecionado.marca?.id) &&
-      b.id !== brinquedoSelecionado.id // Permite salvar se for o próprio brinquedo sendo editado
+      b.id !== brinquedoSelecionado.id 
     );
 
     if (brinquedoDuplicado) {
